@@ -9,7 +9,7 @@ export default function NotFound() {
       <p className="main__description">Страница не найдена</p>
       <button
         className="button main__button"
-        onClick={() => navigate("/", { replace: true })}
+        onClick={() => navigate(-1)}
         type="button"
       >
         Назад

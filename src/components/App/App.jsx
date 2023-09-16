@@ -1,7 +1,8 @@
 import "./App.css";
 import React, { useState } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
+import Login from "../Login/Login";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -10,7 +11,7 @@ function App() {
     <div className="page">
       <Routes>
         <Route path="/" />
-        <Route path="/signin" />
+        <Route path="/signin" element={<Login />} />
         <Route path="/signup" />
         <Route path="/profile" />
         <Route path="/saved-movies" />
