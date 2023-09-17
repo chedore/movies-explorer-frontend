@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import Login from "../Login/Login";
+import Register from "../Register/Register";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -12,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" />
         <Route path="/signin" element={<Login />} />
-        <Route path="/signup" />
+        <Route path="/signup" element={<Register />} />
         <Route path="/profile" />
         <Route path="/saved-movies" />
         <Route path="/movies" />

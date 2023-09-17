@@ -57,15 +57,19 @@
   font-weight: 400;
   line-height: normal;
   opacity: 0;
+  height: 0; 
+  padding: 10px 0 0 0;
 }
 
 .form__span:last-of-type {
-  margin: 0 0;
+  margin: 0;
+  padding: 0;
 }
 
 .form__span-error {
   opacity: 1;
   color: #ee3465;
+  height: 10px;
 }
 
 .form__button {
@@ -77,7 +81,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  margin: 169px auto 16px 0;
+  margin: 0 auto 16px;
   padding: 13px 0 15px 0;
   width: 100%;
   flex-shrink: 0;
@@ -113,7 +117,7 @@
     text-align: center;
   }
   .form__button {
-    margin: 257px auto 14px 0;
+    margin: 0 auto 14px;
   }
   .form__span-description {
     font-size: 12px;

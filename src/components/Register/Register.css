@@ -1,18 +1,18 @@
-.login {
+.register {
   display: flex;
   flex-direction: column;
   padding: 0;
 }
 
-.login__container {
+.register__container {
   display: flex;
   flex-direction: column;
   padding: 0;
-  margin: 40px 0 179px;
+  margin: 40px 0 69px;
 }
 
 @media screen and (max-width: 320px) {
-  .login__container {
-    margin: 80px 0 267px;
+  .register__container {
+    margin: 80px 0 157px;
   }
 }
