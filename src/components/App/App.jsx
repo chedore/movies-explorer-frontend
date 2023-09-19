@@ -5,6 +5,7 @@ import NotFound from "../NotFound/NotFound";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
+import Landing from "../Landing/Landing";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/profile" element={<Profile />} />

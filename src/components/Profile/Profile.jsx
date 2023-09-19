@@ -8,9 +8,9 @@ export default function Profile() {
   const [email, setEmail] = useState("pochta@yandex.ru");
 
   return (
-    <main className="profile">
+    <>
       <Header />
-      <main>
+      <main className="profile">
         <h1 className="profile__title">Привет, {name}!</h1>
 
         <div className="profile__container">
@@ -30,6 +30,6 @@ export default function Profile() {
           </Link>
         </div>
       </main>
-    </main>
+    </>
   );
 }
