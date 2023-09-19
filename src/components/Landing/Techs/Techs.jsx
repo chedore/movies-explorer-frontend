@@ -12,7 +12,7 @@ export default function Techs() {
         </p>
         <ul className="tech__links">
           <li className="link tech__link">HTML</li>
-           <li className="link tech__link">CSS</li>
+          <li className="link tech__link">CSS</li>
           <li className="link tech__link">JS</li>
           <li className="link tech__link">React</li>
           <li className="link tech__link">Git</li>
