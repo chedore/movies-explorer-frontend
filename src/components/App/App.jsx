@@ -6,6 +6,7 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
 import Landing from "../Landing/Landing";
+import Movies from "../Movies/Movies";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
           <Route path="/signup" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/saved-movies" />
-          <Route path="/movies" />
+          <Route path="/movies" element={<Movies />}  />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

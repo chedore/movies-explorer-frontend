@@ -17,8 +17,8 @@ export default function Landing() {
         <Techs />
         <AboutMe />
         <Portfolio />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }
