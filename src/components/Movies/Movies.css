@@ -3,3 +3,25 @@
   margin: 0;
   padding: 0;
 }
+.movies__bytton-container {
+  display: flex;
+  margin: 50px 0 0;
+  padding: 0;
+  width: 100%
+}
+
+.movies__bytton-more-movies {
+  width: 320px;
+  height: 36px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background-color: transparent;
+  color: #fff;
+  box-sizing: content-box;
+  border-radius: 6px;
+  border: 1px solid #424242;
+}

@@ -1,7 +1,7 @@
 import "./MoviesCard.css";
 import { useState } from "react";
 
-export default function MoviesCard({ movie }) {
+export default function MoviesCard({ movie, showMode = "" }) {
   const [isLiked, setIsLiked] = useState(false);
 
   function handleLikeClick() {
@@ -15,11 +15,18 @@ export default function MoviesCard({ movie }) {
         src={movie.image}
         alt={`Постер к фильму: ${movie.name}`}
       />
-      <button
-        type="button"
-        className={`button movie__button ${isLiked ? "movie__button-like": "movie__button-save"}`}
-        onClick={handleLikeClick}
-      ></button>
+      {showMode ? (
+        <></>
+      ) : (
+        <button
+          type="button"
+          className={`button movie__button ${
+            isLiked ? "movie__button-like" : "movie__button-save"
+          }`}
+          onClick={handleLikeClick}
+        ></button>
+      )}
+
       <div className="movie__description">
         <h2 className="movie__name">{movie.name}</h2>
         <p className="movie__time">{movie.time}</p>

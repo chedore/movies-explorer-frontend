@@ -60,3 +60,21 @@ export const startCards = [
     image: '../poster/12.svg'
   }
 ]
+
+export const saveCards = [
+  {
+    name: '33 слова о дизайне',
+    time: '1ч 17м',
+    image: '../poster/1.svg'
+  },
+  {
+    name: 'Киноальманах «100 лет дизайна»',
+    time: '1ч 17м',
+    image: '../poster/2.svg'
+  },
+  {
+    name: 'В погоне за Бенкси',
+    time: '1ч 17м',
+    image: '../poster/3.svg'
+  }
+]
