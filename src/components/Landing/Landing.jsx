@@ -4,6 +4,7 @@ import Promo from "../Landing/Promo/Promo"
 import AboutProject from "./AboutProject/AboutProject";
 import Techs from "./Techs/Techs";
 import AboutMe from "./AboutMe/AboutMe";
+import Portfolio from "./Portfolio/Portfolio";
 
 export default function Landing() {
   return (
@@ -14,6 +15,7 @@ export default function Landing() {
         <AboutProject />
         <Techs />
         <AboutMe />
+        <Portfolio />
       </main>
     </>
   );
