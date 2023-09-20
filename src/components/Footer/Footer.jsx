@@ -9,7 +9,7 @@ export default function Footer() {
       </h2>
       <p className="line"></p>
       <nav className="footer__group">
-        <p class="footer__copyright">&copy; {new Date().getFullYear()}</p>
+        <p className="footer__copyright">&copy; {new Date().getFullYear()}</p>
         <ul className="footer__links">
           <li>
             <Link
