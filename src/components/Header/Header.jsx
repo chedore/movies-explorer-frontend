@@ -11,9 +11,7 @@ export default function Header() {
   return (
     <header className="header">
       <img className="logo logo_place_header" src={logo} alt="Логотип" />
-      
-      {/* {path === '/' ? <NavigationLanding /> : <NavigationProfile />} */}
-      {path === '/' ? '' : <NavigationProfile />}
+      {path === '/' ? <NavigationLanding /> : <NavigationProfile />}
     </header>
   );
 }
