@@ -13,35 +13,31 @@ export default function NavigationProfile() {
 
   return (
     <>
-      <div className="navigate__profile">
-        <div className="navigate__profile-links">
-          <NavLink to="/movies" className="link navigate__profile-link">
+      <div className="navigateprofile">
+        <div className="navigateprofile-links">
+          <NavLink to="/movies" className="link navigateprofile-link">
             Фильмы
           </NavLink>
 
           <NavLink
             to="/saved-movies"
-            className="link navigate__profile-link"
+            className="link navigateprofile-link"
           >
             Сохранённые фильмы
           </NavLink>
         </div>
       </div>
-      <Link to="/profile" className="navigate__profile-account">
+      <Link to="/profile" className="button navigateprofile-account">
         Аккаунт
       </Link>
       <img
-        className="navigate__profile-icon"
+        className="navigateprofile-icon"
         src={menu}
         alt="Меню"
         onClick={handleMenuClick}
       />
+      <NavigationMenu isOpen={isOpenMenu} onClose={handleMenuClick} />
 
-      {!isOpenMenu ? (
-        <NavigationMenu isOpen={isOpenMenu} onClose={handleMenuClick} />
-      ) : (
-        console.log("2")
-      )}
     </>
   );
 }

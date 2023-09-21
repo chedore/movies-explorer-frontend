@@ -4,6 +4,8 @@
   position: relative;
   margin: 0 auto;
   padding: 0;
+  z-index: 0;
+  cursor: pointer;
 }
 
 .movie__image {
@@ -83,12 +85,12 @@
 
 @media screen and (max-width: 750px) {
   .movie__image {
-    width: 292px;
+    width: 300px;
     height: 168px;
   }
   .movie__description {
     gap: none;
-    max-width: 292px;
+    max-width: 300px;
   }
   .movie__name {
     font-size: 12px;
@@ -96,11 +98,14 @@
     margin: 16px 0 0 0;
   }
   .movie__time {
-
     margin: 19px 0 0 0;
     display: flex;
     text-align: center;
-
+  }
+  .movie__button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 
 }

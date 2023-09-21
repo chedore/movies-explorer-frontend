@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 
 export default function AboutMe() {
   return (
-    <section className="aboutme__container">
+    <section className="aboutme__container" id="student">
       <h2 className="aboutme__title">Студент</h2>
-      <p className="line"></p>
       <div className="student__info">
         <div className="student__content">
           <h3 className="student__content-name">Виталий</h3>
@@ -18,7 +17,7 @@ export default function AboutMe() {
             Контур». После того, как прошёл курс по веб-разработке, начал
             заниматься фриланс-заказами и ушёл с постоянной работы.
           </p>
-          <Link to="https://github.com/chedore" className="link student__content-link" rel='noreferrer'>
+          <Link to="https://github.com/chedore" className="link student__content-link" target="_blank" rel='noreferrer'>
             Github
           </Link>
         </div>

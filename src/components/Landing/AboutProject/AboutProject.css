@@ -8,13 +8,15 @@
 }
 
 .aboutprojec__title {
-  width: 600px;
+  /* width: 600px; */
   font-size: 22px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.88px;
-  margin: 110px 0 23px 0;
+  margin: 110px 0 0 0;
+  padding: 0 0 23px 0;
+  border-bottom:1px solid #DADADA;
 }
 
 .table {
@@ -39,6 +41,7 @@
   line-height: normal;
   letter-spacing: -0.8px;
   margin: 0;
+  padding: 0;
 }
 
 .table__text {
@@ -47,6 +50,7 @@
   font-weight: 400;
   line-height: 20px;
   margin: 26px 0 0;
+  padding: 0;
 }
 
 .progressbar__container {
@@ -58,10 +62,15 @@
 
 .progressbar__bacend-width {
   width: 228px;
+  margin: 0;
+  padding: 0;
+
 }
 
 .progressbar__frontend-width {
   width: 912px;
+  margin: 0;
+  padding: 0;
 }
 
 .progressbar__bacend {
@@ -146,26 +155,27 @@
 
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 750px) {
   .aboutproject__container {
     width: 284px;
     height: 641px;
   }
   .aboutprojec__title {
     margin: 70px 0 28px 0;
-    width: 284px;
+    /* width: 284px; */
     font-size: 18px;
     letter-spacing: -0.72px;
   }
   .table {
-    margin: 60px 0 0;
-    gap: 56px;
+    margin: 60px 0 0 0;
+    gap: 60px;
   }
   .table__cell {
     width: 284px;
   }
   .table__heading {
     font-size: 18px;
+    letter-spacing: -0.72px;
   }
   .table__text {
     font-size: 11px;
@@ -176,10 +186,10 @@
     margin: 60px auto 0;
   }
   .progressbar__bacend {
-    height: 35px;
+    font-size: 11px;
   }
   .progressbar__frontend {
-    height: 35px;
+    font-size: 11px;
   }
   .progressbar__bacend-width  {
     width: 100px;
@@ -190,5 +200,8 @@
   .progressbar__title {
     font-size: 11px;
     line-height: normal; 
+  }
+  .progresstitle__container {
+    margin: 10px auto 0;
   }
 }

@@ -16,7 +16,7 @@ export default function Login() {
           <input
             type="email"
             id="form-email-input"
-            className="form__input"
+            className="input form__input"
             placeholder=""
             name="email"
             required
@@ -27,9 +27,11 @@ export default function Login() {
           <input
             type="password"
             id="form-password-input"
-            className="form__input"
+            className="input form__input"
             placeholder=""
             name="password"
+            minLength='2'
+            maxLength='40'
             required
           />
           <span className="form__span">Что-то пошло не так...</span>

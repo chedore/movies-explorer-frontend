@@ -11,11 +11,11 @@ export default function Movies() {
       <main>
         <SearchForm />
         <MoviesCardList />
-        <div className="movies__bytton-container">
-          <button type="button" className="bytton movies__bytton-more-movies">
+        <section className="moviesbytton">
+          <button type="button" className="bytton moviesbytton-moremovies">
             Ещё
           </button>
-        </div>
+        </section>
       </main>
       <Footer />
     </>

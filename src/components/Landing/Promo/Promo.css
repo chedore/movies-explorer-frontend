@@ -9,7 +9,7 @@
   margin: 20px auto 0;
 }
 
-.promo___title {
+.promo__title {
   text-align: center;
   font-size: 50px;
   font-style: normal;
@@ -25,6 +25,8 @@
   flex-direction: row;
   gap: 10px;
   margin: 151px auto 0;
+  list-style: none;
+  padding: 0;
 }
 
 .promo__link {
@@ -50,7 +52,7 @@
     height: 834px;
   }
 
-  .promo___title {
+  .promo__title {
     width: 680px;
     font-size: 40px;
     line-height: 52px;
@@ -62,14 +64,14 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 750px) {
   .promo__container {
     width: 292px;
     height: 586px;
     margin: 14px auto 0;
   }
   
-  .promo___title {
+  .promo__title {
     width: 292px;
     font-size: 29px;
     line-height: 37px;

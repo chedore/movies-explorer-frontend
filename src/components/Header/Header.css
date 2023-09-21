@@ -1,11 +1,21 @@
 .header {
-  width: 100%;
-  height: 74px;
+  display: flex;
   margin: 0 auto;
   padding: 0;
-  z-index: auto;
-  display: flex;
+  width: 1140px;
+  height: 74px;
   justify-content: space-between;
   align-items: flex-start;
 }
 
+@media screen and (max-width: 1200px) {
+  .header {
+    width: 708px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .header {
+    width: 292px;
+  }
+}

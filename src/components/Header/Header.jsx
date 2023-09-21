@@ -1,6 +1,6 @@
 import "./Header.css";
 import logo from "../../images/logo.svg";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NavigationLanding from "../Navigation/NavigationLanding/NavigationLanding";
 import NavigationProfile from "../Navigation/NavigationProfile/NavigationProfile";
 
@@ -10,7 +10,9 @@ export default function Header() {
 
   return (
     <header className="header">
-      <img className="logo logo_place_header" src={logo} alt="Логотип" />
+      <Link to='/' >
+        <img className="logo logo_place_header" src={logo} alt="Логотип" />
+      </Link>
       {path === '/' ? <NavigationLanding /> : <NavigationProfile />}
     </header>
   );

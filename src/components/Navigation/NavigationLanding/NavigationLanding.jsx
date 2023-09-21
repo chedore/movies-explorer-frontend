@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 
 export default function NavigationLanding() {
   return (
-    <div className="navigate__landing-links">
-      <Link className="link navigate__landing-link" to="/signup">
+    <section className="navigatelanding">
+    <div className="navigatelanding-links">
+      <Link className="link navigatelanding-link" to="/signup">
         Регистрация
       </Link>
-      <Link className="link navigate__button" to="/signin">
+      <Link className="link navigatelanding__button" to="/signin">
         Войти
       </Link>
     </div>
+    </section>
   );
 }

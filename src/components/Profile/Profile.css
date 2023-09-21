@@ -84,7 +84,7 @@
   text-decoration: none;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1200px) {
   .profile__title {
     margin: 236px auto 0;
   }
@@ -99,7 +99,7 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 750px) {
   .profile__title {
     margin: 70px auto 0;
   }

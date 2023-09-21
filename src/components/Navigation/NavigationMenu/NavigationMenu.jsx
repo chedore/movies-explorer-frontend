@@ -12,11 +12,11 @@ export default function NavigationMenu({ isOpen, onClose }) {
           alt="Закрыть"
           onClick={onClose}
         />
-        <div className="navigate__menu-links">
+        <div className="navigatemenu-links">
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `link navigate__menu-link ${isActive ? "active" : ""}`
+              `link navigatemenu-link ${isActive ? "active" : ""}`
             }
           >
             Главная
@@ -24,7 +24,7 @@ export default function NavigationMenu({ isOpen, onClose }) {
           <NavLink
             to="/movies"
             className={({ isActive }) =>
-              `link navigate__menu-link ${isActive ? "active" : ""}`
+              `link navigatemenu-link ${isActive ? "active" : ""}`
             }
           >
             Фильмы
@@ -32,13 +32,13 @@ export default function NavigationMenu({ isOpen, onClose }) {
           <NavLink
             to="/saved-movies"
             className={({ isActive }) =>
-              `link navigate__menu-link ${isActive ? "active" : ""}`
+              `link navigatemenu-link ${isActive ? "active" : ""}`
             }
           >
             Сохранённые фильмы
           </NavLink>
         </div>
-        <Link to="/profile" className="navigate__menu-account">
+        <Link to="/profile" className="button navigatemenu-account">
           Аккаунт
         </Link>
       </div>

@@ -16,9 +16,11 @@ export default function Register() {
           <input
             type="name"
             id="form-name-input"
-            className="form__input"
+            className="input form__input"
             placeholder=""
             name="name"
+            minLength='2'
+            maxLength='40'
             required
           />
           <span className="form__span">Что-то пошло не так...</span>
@@ -27,7 +29,7 @@ export default function Register() {
           <input
             type="email"
             id="form-email-input"
-            className="form__input"
+            className="input form__input"
             placeholder=""
             name="email"
             required
@@ -38,9 +40,11 @@ export default function Register() {
           <input
             type="password"
             id="form-password-input"
-            className="form__input"
+            className="input form__input"
             placeholder=""
             name="password"
+            minLength='2'
+            maxLength='40'
             required
           />
           <span className="form__span">Что-то пошло не так...</span>

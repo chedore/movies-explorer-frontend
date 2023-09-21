@@ -2,9 +2,8 @@ import "./AboutProject.css";
 
 export default function AboutProject() {
   return (
-    <section className="aboutproject__container">
+    <section className="aboutproject__container" id="about">
       <h2 className="aboutprojec__title">О проекте</h2>
-      <p className="line"></p>
       <ul className="table">
         <li className="table__cell">
           <h3 className="table__heading">Дипломный проект включал 5 этапов</h3>
@@ -25,8 +24,8 @@ export default function AboutProject() {
       </ul>
 
       <div className="progressbar__container">
-        <div className="progressbar__bacend-width progressbar__bacend">1 неделя</div>
-        <div className="progressbar__frontend-width progressbar__frontend">4 недели</div>
+        <h4 className="progressbar__bacend-width progressbar__bacend">1 неделя</h4>
+        <h4 className="progressbar__frontend-width progressbar__frontend">4 недели</h4>
       </div>
 
       <div className="progresstitle__container">
