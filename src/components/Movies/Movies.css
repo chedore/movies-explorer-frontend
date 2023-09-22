@@ -1,0 +1,38 @@
+.line {
+  border-bottom:1px solid #424242;
+  margin: 0;
+  padding: 0;
+}
+
+.moviesbytton {
+  display: flex;
+  margin: 60px 0 80px 0;
+  padding: 0;
+  width: 100%
+}
+
+.moviesbytton-moremovies {
+  width: 302px;
+  height: 34px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background-color: transparent;
+  color: #fff;
+  box-sizing: content-box;
+  border-radius: 6px;
+  border: 1px solid #424242;
+}
+
+@media screen and (max-width: 750px) {
+  .line {
+    width: 292px;
+  }
+  .moviesbytton-moremovies {
+    width: 240px;
+  }
+
+}

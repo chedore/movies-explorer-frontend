@@ -1,0 +1,18 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.register__container {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 40px 0 69px;
+}
+
+@media screen and (max-width: 320px) {
+  .register__container {
+    margin: 80px 0 157px;
+  }
+}
