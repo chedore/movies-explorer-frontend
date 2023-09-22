@@ -31,7 +31,7 @@ export default function NavigationProfile() {
         Аккаунт
       </Link>
       <img
-        className="navigateprofile-icon"
+        className="button navigateprofile-icon"
         src={menu}
         alt="Меню"
         onClick={handleMenuClick}

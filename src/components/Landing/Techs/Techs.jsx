@@ -1,8 +1,8 @@
 import "./Techs.css";
 export default function Techs() {
   return (
-    <section className="tech">
-      <div className="tech__container" id="tech">
+    <section className="tech" id="tech">
+      <div className="tech__container" >
         <h2 className="tech__title">Технологии</h2>
         <h2 className="tech__subtitle">7 технологий</h2>
         <p className="tech__text">

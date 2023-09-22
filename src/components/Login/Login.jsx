@@ -3,7 +3,7 @@ import Form from "../Form/Form";
 
 export default function Login() {
   return (
-    <section className="login">
+    <main className="login">
       <Form
         title="Рады видеть!"
         buttonName="Войти"
@@ -17,7 +17,7 @@ export default function Login() {
             type="email"
             id="form-email-input"
             className="input form__input"
-            placeholder=""
+            placeholder="Введите почту"
             name="email"
             required
           />
@@ -28,7 +28,7 @@ export default function Login() {
             type="password"
             id="form-password-input"
             className="input form__input"
-            placeholder=""
+            placeholder="Введите пароль"
             name="password"
             minLength='2'
             maxLength='40'
@@ -37,6 +37,6 @@ export default function Login() {
           <span className="form__span">Что-то пошло не так...</span>
         </div>
       </Form>
-    </section>
+    </main>
   );
 }

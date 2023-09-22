@@ -12,7 +12,7 @@
 }
 
 .moviesbytton-moremovies {
-  width: 320px;
+  width: 302px;
   height: 34px;
   margin: 0 auto;
   text-align: center;
@@ -29,7 +29,10 @@
 
 @media screen and (max-width: 750px) {
   .line {
-    width:292px;
+    width: 292px;
+  }
+  .moviesbytton-moremovies {
+    width: 240px;
   }
 
 }

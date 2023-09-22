@@ -16,7 +16,10 @@ export default function MoviesCard({ movie, showMode = "" }) {
         alt={`Постер к фильму: ${movie.name}`}
       />
       {showMode ? (
-        <></>
+        <button
+          type="button"
+          className={`button movie__button movie__button-close`}
+        ></button>
       ) : (
         <button
           type="button"

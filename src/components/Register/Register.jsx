@@ -3,7 +3,7 @@ import Form from "../Form/Form";
 
 export default function Register() {
   return (
-    <section className="register">
+    <main className="register">
       <Form
         title="Добро пожаловать!"
         buttonName="Зарегистрироваться"
@@ -14,10 +14,10 @@ export default function Register() {
         <div className="register__container">
           <label className="form__label">Имя</label>
           <input
-            type="name"
+            type="text"
             id="form-name-input"
             className="input form__input"
-            placeholder=""
+            placeholder="Введите имя"
             name="name"
             minLength='2'
             maxLength='40'
@@ -30,7 +30,7 @@ export default function Register() {
             type="email"
             id="form-email-input"
             className="input form__input"
-            placeholder=""
+            placeholder="Введите почту"
             name="email"
             required
           />
@@ -41,7 +41,7 @@ export default function Register() {
             type="password"
             id="form-password-input"
             className="input form__input"
-            placeholder=""
+            placeholder="Придумайте пароль"
             name="password"
             minLength='2'
             maxLength='40'
@@ -50,6 +50,6 @@ export default function Register() {
           <span className="form__span">Что-то пошло не так...</span>
         </div>
       </Form>
-    </section>
+    </main>
   );
 }

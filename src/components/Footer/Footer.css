@@ -78,7 +78,7 @@
   .footer__title {
     width: 100%;
     font-size: 12px;
-    margin: 79px auto 21px;
+    padding: 0 0 21px 0;
   }
   .footer__group {
     flex-direction: column-reverse;

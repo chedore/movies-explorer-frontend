@@ -4,7 +4,6 @@
   align-items: center;
   padding-top: 25px;
   padding-bottom: 43px;
-  border-bottom: 1px solid rgba(170, 170, 170, 0.2);
 }
 
 .checkbox__input {
@@ -55,16 +54,16 @@
   cursor: pointer;
 }
 
-@media (max-width: 770px) {
+@media (max-width: 1200px) {
   .checkbox {
-    padding-top: 23px;
+    padding-top: 40px;
     border-bottom: 51px;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 750px) {
   .checkbox {
-    padding-top: 29px;
+    padding-top: 46px;
     border-bottom: 51px;
   }
 

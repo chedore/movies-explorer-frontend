@@ -10,7 +10,7 @@ export default function Profile() {
   return (
     <>
       <Header />
-      <main className="profile">
+      <section className="profile">
         <h1 className="profile__title">Привет, {name}!</h1>
 
         <div className="profile__container">
@@ -29,7 +29,7 @@ export default function Profile() {
             Выйти из аккаунта
           </Link>
         </div>
-      </main>
+      </section>
     </>
   );
 }

@@ -4,7 +4,7 @@ import "./NotFound.css";
 export default function NotFound() {
   const navigate = useNavigate();
   return (
-    <main className="main">
+    <section className="main">
       <h1 className="main__title">404</h1>
       <p className="main__description">Страница не найдена</p>
       <button
@@ -14,6 +14,6 @@ export default function NotFound() {
       >
         Назад
       </button>
-    </main>
+    </section>
   );
 }

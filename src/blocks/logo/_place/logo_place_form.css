@@ -10,6 +10,7 @@
 
 @media screen and (max-width: 320px) {
   .logo_place_form {
+    width: 100%;
     margin: 56px auto 0;
   }
 }

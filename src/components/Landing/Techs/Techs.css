@@ -81,7 +81,7 @@
   }
   .tech__title {
     width: 100%;
-    margin: 90px 0 23px 0;
+    margin: 90px 0 0 0;
   }
   .tech__subtitle {
     padding: 80px 0 22px;
@@ -113,7 +113,8 @@
     width: 100%;
     font-size: 18px;
     letter-spacing: -0.72px;
-    margin: 70px 0 28px 0;
+    margin: 70px 0 0 0;
+    padding: 0 0 28px 0;
   }
   .tech__subtitle {
     width: 100%;
