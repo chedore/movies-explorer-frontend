@@ -16,7 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build | scp -r ./build/* svet@158.160.120.114:/home/svet/diplom/frontend"
   },
   "eslintConfig": {
     "extends": [
