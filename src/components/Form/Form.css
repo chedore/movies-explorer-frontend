@@ -89,6 +89,11 @@
   width: 100%;
   flex-shrink: 0;
 }
+.form__button_disabled {
+  cursor: default;
+  opacity: 0.2;
+  background: #2f2f2f;
+}
 
 .form__span-description {
   color: #8b8b8b;

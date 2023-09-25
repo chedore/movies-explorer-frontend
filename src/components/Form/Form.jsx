@@ -9,15 +9,17 @@ export default function Form({
   spanName,
   spanLink,
   spanPatch,
+  onSubmit,
+  isValid = false,
 }) {
   return (
-    <form className="form">
+    <form className="form" onSubmit={onSubmit}>
       <Link to="/">
         <img className="logo logo_place_form" src={logo} alt="Логотип" />
       </Link>
       <h1 className="form__title">{title}</h1>
       {children}
-      <button className="button form__button" type="submit">
+      <button className={`button form__button ${!isValid && 'form__button_disabled'}`} type="submit" disabled={!isValid}>
         {buttonName}
       </button>
       <span className="form__span-description">
