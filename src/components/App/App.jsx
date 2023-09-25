@@ -66,9 +66,22 @@ function App() {
         console.log(err);
       });
   }
+
   function handleLogout() {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
+  }
+
+  function handleUserUpdate(name, email) {
+
+    api
+      .userProfile({ name, email })
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -85,7 +98,11 @@ function App() {
             <Route
               path="/profile"
               element={
-                <ProtectedRoute element={Profile} onLogout={handleLogout} />
+                <ProtectedRoute
+                  element={Profile}
+                  onLogout={handleLogout}
+                  onUserUpdate={handleUserUpdate}
+                />
               }
             />
             <Route

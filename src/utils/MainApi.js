@@ -6,11 +6,11 @@ class MainApi {
     this._headers = headers;
   }
 
-  setToken(options){
+  setToken(options) {
     if (!options.headers.authorization) {
-      options.headers.authorization = `Bearer ${localStorage.getItem('jwt')}`
+      options.headers.authorization = `Bearer ${localStorage.getItem("jwt")}`;
     }
-    return options
+    return options;
   }
 
   /**Проверить данные от сервера*/
@@ -31,7 +31,7 @@ class MainApi {
 
   /**Универсальный метод запроса с проверкой ответа c токеном*/
   async _request_token(endpoint, options) {
-    options=this.setToken(options);
+    options = this.setToken(options);
     const url = `${this._baseUrl}${endpoint}`;
     return await fetch(url, options).then(this._checkResponse);
   }
@@ -62,6 +62,16 @@ class MainApi {
       method: "GET",
       headers: this._headers,
       // credentials: "include",
+    });
+  }
+
+  /**Обновление данных пользователя*/
+  userProfile({ name, email }) {
+    return this._request_token("/users/me", {
+      method: "PATCH",
+      headers: this._headers,
+      // credentials: "include",
+      body: JSON.stringify({ name, email }),
     });
   }
 }

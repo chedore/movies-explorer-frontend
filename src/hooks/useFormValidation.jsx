@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState , useContext} from "react";
 import { regexName, regexEmail } from "../utils/constants";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
 
 export function useFormValidation() {
+  const user = useContext(CurrentUserContext);
   const [formValue, setFormValue] = useState({
-    name: "",
-    email: "",
+    name: user.name || "",
+    email: user.email || "",
     password: "",
   });
   const [isValid, setIsValid] = useState(true);
@@ -62,6 +65,7 @@ export function useFormValidation() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value)
 
     // заполняем данные формы
     setFormValue({
