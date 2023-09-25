@@ -10,18 +10,24 @@ import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { CurrentLoggedInContext } from "../../contexts/CurrentLoggedContext";
+import { CurrentAllMoviesContext } from "../../contexts/CurrentAllMoviesContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { api } from "../../utils/MainApi";
+import { apiMovies } from "../../utils/MoviesApi";
+import transformMovieHandle from '../../utils/MovieTransform';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [allMovies, setAllMovies] = useState([]);
+  
 
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
 
   useEffect(() => {
     checkTocken();
+    if (loggedIn) handleGetAllMovies();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
@@ -73,7 +79,6 @@ function App() {
   }
 
   function handleUserUpdate(name, email) {
-
     api
       .userProfile({ name, email })
       .then((user) => {
@@ -83,10 +88,22 @@ function App() {
         console.log(err);
       });
   }
+  function handleGetAllMovies() {
+    apiMovies.getMovies()
+    .then((allMovies) => {
+      const transAllMovies = transformMovieHandle(allMovies);
+      setAllMovies(transAllMovies);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <CurrentLoggedInContext.Provider value={loggedIn}>
+      <CurrentAllMoviesContext.Provider value={allMovies}>
         <div className="page">
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -116,6 +133,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
+        </CurrentAllMoviesContext.Provider>
       </CurrentLoggedInContext.Provider>
     </CurrentUserContext.Provider>
   );

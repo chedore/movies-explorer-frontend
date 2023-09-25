@@ -9,6 +9,14 @@ export const apiConfig = {
   }
 }
 
+// конфиг для api (работа с сервером Яндекс)
+export const apiMoviesConfig = {
+  baseUrl: 'https://api.nomoreparties.co',
+  headers: {
+    "Content-Type": "application/json"
+  }
+}
+
 export const startCards = [
   {
     name: '33 слова о дизайне',

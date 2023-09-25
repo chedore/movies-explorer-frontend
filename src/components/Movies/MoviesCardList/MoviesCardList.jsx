@@ -1,10 +1,14 @@
 import "./MoviesCardList.css";
 import { startCards, saveCards } from "../../../utils/constants";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import { useState } from "react";
+import { useState , useContext} from "react";
+import { CurrentAllMoviesContext } from "../../../contexts/CurrentAllMoviesContext";
 
 export default function MoviesCardList({ showMode = "" }) {
-  const [massCards, setMassCards] = useState(showMode ? saveCards : startCards);
+  const allMovies = useContext(CurrentAllMoviesContext);
+  console.log(allMovies.slice(2, 4))
+  //const [massCards, setMassCards] = useState(showMode ? saveCards : startCards);
+  const [massCards, setMassCards] = useState(allMovies.slice(2, 4));
 
   return (
     <section className="moviescard">
