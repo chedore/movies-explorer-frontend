@@ -1,10 +1,9 @@
 import "./Register.css";
 import Form from "../Form/Form";
-import React, { useState } from "react";
 import { useFormValidation } from "../../hooks/useFormValidation";
 
 export default function Register({ onRegister }) {
-  const {formValue, handleChange, isValid, errors } = useFormValidation();
+  const { formValue, handleChange, isValid, errors } = useFormValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +35,9 @@ export default function Register({ onRegister }) {
             required
             onChange={handleChange}
           />
-          <span className={`form__span ${errors.name && "form__span-error"}`}>{errors.name}</span>
+          <span className={`form__span ${errors.name && "form__span-error"}`}>
+            {errors.name}
+          </span>
 
           <label className="form__label">E-mail</label>
           <input
@@ -48,7 +49,9 @@ export default function Register({ onRegister }) {
             required
             onChange={handleChange}
           />
-          <span className={`form__span ${errors.email && "form__span-error"}`}>{errors.email}</span>
+          <span className={`form__span ${errors.email && "form__span-error"}`}>
+            {errors.email}
+          </span>
 
           <label className="form__label">Пароль</label>
           <input
@@ -62,7 +65,11 @@ export default function Register({ onRegister }) {
             required
             onChange={handleChange}
           />
-          <span className={`form__span ${errors.password && "form__span-error"}`}>{errors.password}</span>
+          <span
+            className={`form__span ${errors.password && "form__span-error"}`}
+          >
+            {errors.password}
+          </span>
         </div>
       </Form>
     </main>

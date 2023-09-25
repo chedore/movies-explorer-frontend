@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 
-export default function Profile() {
+export default function Profile({ onLogout }) {
   const [name, setName] = useState("Виталий");
   const [email, setEmail] = useState("pochta@yandex.ru");
 
@@ -25,7 +25,7 @@ export default function Profile() {
         </div>
         <div className="profile__buttons">
           <button className="button profile__button-edit">Редактировать</button>
-          <Link className="link profile__link-exit" to="/signin">
+          <Link className="link profile__link-exit" to="/signin" onClick={onLogout}>
             Выйти из аккаунта
           </Link>
         </div>

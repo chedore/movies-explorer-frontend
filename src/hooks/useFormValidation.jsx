@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { regexName, regexEmail} from "../utils/constants";
+import { useState } from "react";
+import { regexName, regexEmail } from "../utils/constants";
 
 export function useFormValidation() {
   const [formValue, setFormValue] = useState({
@@ -7,26 +7,49 @@ export function useFormValidation() {
     email: "",
     password: "",
   });
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState(true);
   const [errors, setErrors] = useState({});
+  const [validations, setValidations] = useState({
+    name: false,
+    email: false,
+    password: false,
+    isResValid() {
+      return this.name + this.email + this.password === 3;
+    },
+  });
 
-  const advancedValidation = (name, value, setIsValid, setErrors, errors) => {
+  const advancedValidation = (
+    name,
+    value,
+    setErrors,
+    errors,
+    setValidations,
+    validations
+    
+  ) => {
     switch (name) {
       case "name":
         if (!regexName.test(value)) {
-          setIsValid(false);
+
+          setValidations({
+            ...validations,
+            [name]: false,
+          });
           setErrors({
             ...errors,
-            [name]: 'Имя может содержать латиницу, кирилицу, дефис и пробел',
+            [name]: "Имя может содержать латиницу, кирилицу, дефис и пробел",
           });
         }
         break;
       case "email":
         if (!regexEmail.test(value)) {
-          setIsValid(false);
+          setValidations({
+            ...validations,
+            [name]: false,
+          });
           setErrors({
             ...errors,
-            [name]: 'Неверно указан email',
+            [name]: "Неверно указан email",
           });
         }
         break;
@@ -45,17 +68,23 @@ export function useFormValidation() {
       ...formValue,
       [name]: value,
     });
-    // console.log(e.target.validationMessage)
+
     // заполняем ошибки
     setErrors({
       ...errors,
       [name]: e.target.validationMessage,
-    })
-    if (!e.target.validationMessage) advancedValidation(name, value, setIsValid, setErrors, errors);
+    });
 
-    // контрольная проверка валидации всей формы
-    setIsValid(e.target.closest("form").checkValidity());
+    // заполняем валидацию
+    setValidations({
+      ...validations,
+      [name]: e.target.checkValidity(),
+    });
 
+    
+    if (!e.target.validationMessage)
+      advancedValidation(name, value, setErrors, errors, setValidations, validations);
+    setIsValid(validations.isResValid());
   };
 
   return { formValue, handleChange, isValid, errors };

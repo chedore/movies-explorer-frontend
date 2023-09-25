@@ -1,19 +1,20 @@
 import "./Header.css";
+import { useContext } from "react";
 import logo from "../../images/logo.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavigationLanding from "../Navigation/NavigationLanding/NavigationLanding";
 import NavigationProfile from "../Navigation/NavigationProfile/NavigationProfile";
+import { CurrentLoggedInContext } from "../../contexts/CurrentLoggedContext";
 
 export default function Header() {
-  const location = useLocation();
-  const path = location.pathname;
+  const loggedIn = useContext(CurrentLoggedInContext);
 
   return (
     <header className="header">
       <Link to='/' >
         <img className="logo logo_place_header" src={logo} alt="Логотип" />
       </Link>
-      {path === '/' ? <NavigationLanding /> : <NavigationProfile />}
+      {loggedIn? <NavigationProfile /> : <NavigationLanding />}
     </header>
   );
 }

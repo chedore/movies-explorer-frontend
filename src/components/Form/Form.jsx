@@ -10,7 +10,7 @@ export default function Form({
   spanLink,
   spanPatch,
   onSubmit,
-  isValid = false,
+  isValid,
 }) {
   return (
     <form className="form" onSubmit={onSubmit}>
