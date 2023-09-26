@@ -4,6 +4,8 @@
 
 Адрес репозитория: https://github.com/chedore
 
+Пул реквест: https://github.com/chedore/movies-explorer-frontend/pull/2
+
 ## Ссылки на проект
 
 IP 158.160.120.114
