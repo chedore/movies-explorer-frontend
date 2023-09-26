@@ -1,6 +1,4 @@
 import "./MoviesCard.css";
-import { useState, useEffect } from "react";
-import { api } from "../../../utils/MainApi";
 
 export default function MoviesCard({
   movie,

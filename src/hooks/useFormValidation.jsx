@@ -3,21 +3,21 @@ import { regexName, regexEmail } from "../utils/constants";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 
-export function useFormValidation() {
+export function useFormValidation(limit=3) {
   const user = useContext(CurrentUserContext);
   const [formValue, setFormValue] = useState({
     name: user.name || "",
     email: user.email || "",
     password: "",
   });
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, setIsValid] = useState(false);
   const [errors, setErrors] = useState({});
   const [validations, setValidations] = useState({
     name: false,
     email: false,
     password: false,
     isResValid() {
-      return this.name + this.email + this.password === 3;
+      return this.name + this.email + this.password === limit;
     },
   });
 
@@ -26,18 +26,13 @@ export function useFormValidation() {
     value,
     setErrors,
     errors,
-    setValidations,
     validations
     
   ) => {
+    validations[name]=(!regexName.test(value))
     switch (name) {
       case "name":
         if (!regexName.test(value)) {
-
-          setValidations({
-            ...validations,
-            [name]: false,
-          });
           setErrors({
             ...errors,
             [name]: "Имя может содержать латиницу, кирилицу, дефис и пробел",
@@ -46,10 +41,6 @@ export function useFormValidation() {
         break;
       case "email":
         if (!regexEmail.test(value)) {
-          setValidations({
-            ...validations,
-            [name]: false,
-          });
           setErrors({
             ...errors,
             [name]: "Неверно указан email",
@@ -65,7 +56,7 @@ export function useFormValidation() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value)
+
 
     // заполняем данные формы
     setFormValue({
@@ -87,7 +78,12 @@ export function useFormValidation() {
 
     
     if (!e.target.validationMessage)
-      advancedValidation(name, value, setErrors, errors, setValidations, validations);
+      advancedValidation(name, value, setErrors, errors, validations);
+    else
+      validations[name]=false
+    
+
+    console.log(validations)
     setIsValid(validations.isResValid());
   };
 

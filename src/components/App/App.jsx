@@ -44,7 +44,7 @@ function App() {
         .catch((err) => {
           setLoggedIn(false);
           setCurrentUser({});
-          console.log(err);
+          alert(err)
         });
     }
   }
@@ -58,7 +58,7 @@ function App() {
         navigate("/movies", { replace: true });
       })
       .catch((err) => {
-        console.log(err);
+        alert(err)
       });
   }
 
@@ -69,7 +69,7 @@ function App() {
         handleLogin(email, password);
       })
       .catch((err) => {
-        console.log(err);
+        alert(err)
       });
   }
 
@@ -85,7 +85,7 @@ function App() {
         setCurrentUser(user);
       })
       .catch((err) => {
-        console.log(err);
+        alert(err)
       });
   }
   function handleGetAllMovies() {
@@ -95,7 +95,7 @@ function App() {
       setAllMovies(transAllMovies);
     })
     .catch((err) => {
-      console.log(err);
+      alert(err)
     });
 
   }

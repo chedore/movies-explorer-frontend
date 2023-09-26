@@ -48,8 +48,6 @@ export default function Movies() {
         moviesToRender = handleFilter(moviesToRender);
       }
       setMassCards(moviesToRender);
-      console.log("res", moviesToRender);
-      console.log(width);
     }
   }
 

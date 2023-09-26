@@ -3,7 +3,7 @@ import Form from "../Form/Form";
 import { useFormValidation } from "../../hooks/useFormValidation";
 
 export default function Login({ onLogin }) {
-  const { formValue, handleChange, isValid, errors } = useFormValidation();
+  const { formValue, handleChange, isValid, errors } = useFormValidation(2);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ export default function Login({ onLogin }) {
         spanLink="Регистрация"
         spanPatch="/signup"
         onSubmit={handleSubmit}
-        isValid={true}
+        isValid={isValid}
       >
         <div className="login__container">
           <label className="form__label">E-mail</label>

@@ -1,15 +1,14 @@
 import "./Profile.css";
-import React, { useState, useContext, useEffect } from "react";
+import "../Form/Form.css";
+import React, { useState, useEffect } from "react";
 import Header from "../Header/Header";
 import { Link } from "react-router-dom";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormValidation } from "../../hooks/useFormValidation";
-
 export default function Profile({ onLogout, onUserUpdate }) {
-  const user = useContext(CurrentUserContext);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const { formValue, handleChange } = useFormValidation();
+  const { formValue, handleChange, isValid } = useFormValidation(1);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,8 +59,9 @@ export default function Profile({ onLogout, onUserUpdate }) {
         </form>
         <div className="profile__buttons">
           <button
-            className="button profile__button-edit"
+            className={`button profile__button-edit ${!isValid && 'form__button_disabled'}`}
             onClick={handleSubmit}
+            disabled={!isValid}
           >
             Редактировать
           </button>
