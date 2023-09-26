@@ -77,7 +77,6 @@ class MainApi {
 
   /**Добавление фильм в сохраненные*/
   createMovie({ movie }) {
-    console.log(movie);
     return this._request_token("/movies", {
       method: "POST",
       headers: this._headers,
