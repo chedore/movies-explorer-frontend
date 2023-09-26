@@ -1,6 +1,6 @@
 import { apiMoviesConfig } from "./constants.js";
 
-const convertDuration = (mins) => {
+export const convertDuration = (mins) => {
   const hours = Math.floor(mins/60);
   const minutes = mins % 60;
   return `${hours}ч ${minutes}м`;

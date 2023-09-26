@@ -1,4 +1,5 @@
 import "./MoviesCard.css";
+import { convertDuration } from "../../../utils/MovieTransform";
 
 export default function MoviesCard({
   movie,
@@ -10,9 +11,10 @@ export default function MoviesCard({
   // const [isLiked, setIsLiked] = useState(false);
   const handleDeleteClick = () => onCardDelete(movie);
   const handleCreateClick = () => {
-    isLiked=true;
-    onCardCreate(movie);}
-    
+    isLiked = true;
+    onCardCreate(movie);
+  };
+
   let isLiked = false;
   isLiked = savedMovies.some((item) => {
     if (item.movieId === movie.movieId) {
@@ -46,8 +48,8 @@ export default function MoviesCard({
       )}
 
       <div className="movie__description">
-        <h2 className="movie__name">{movie.name}</h2>
-        <p className="movie__time">{movie.time}</p>
+        <h2 className="movie__name">{movie.nameRU}</h2>
+        <p className="movie__time">{convertDuration(movie.duration)}</p>
       </div>
     </li>
   );
