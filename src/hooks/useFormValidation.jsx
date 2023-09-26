@@ -75,15 +75,12 @@ export function useFormValidation(limit=3) {
       ...validations,
       [name]: e.target.checkValidity(),
     });
-
     
     if (!e.target.validationMessage)
       advancedValidation(name, value, setErrors, errors, validations);
     else
       validations[name]=false
-    
 
-    console.log(validations)
     setIsValid(validations.isResValid());
   };
 
