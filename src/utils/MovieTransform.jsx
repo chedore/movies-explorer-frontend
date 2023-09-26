@@ -20,9 +20,9 @@ export default function transformMovieHandle(movie) {
       movieId: movie.id,
       nameRU: movie.nameRU,
       nameEN: movie.nameEN,
-      name: movie.nameRU,
-      time: convertDuration(movie.duration),
-      key: movie.id
+      // name: movie.nameRU,
+      // time: convertDuration(movie.duration),
+      // key: movie.id
     }))
   )
 }

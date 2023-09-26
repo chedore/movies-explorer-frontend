@@ -74,6 +74,34 @@ class MainApi {
       body: JSON.stringify({ name, email }),
     });
   }
+
+  /**Добавление фильм в сохраненные*/
+  createMovie({ movie }) {
+    console.log(movie);
+    return this._request_token("/movies", {
+      method: "POST",
+      headers: this._headers,
+      // credentials: "include",
+      body: JSON.stringify(movie),
+    });
+  }
+
+  /**Удаление сохранённого фильма по movieId*/
+  deleteMovie(movieId) {
+    return this._request_token(`/movies/${movieId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    });
+  }
+
+  /**Возвращает все сохранённые текущим пользователем фильмы*/
+  getMovies() {
+    return this._request_token("/movies", {
+      method: "GET",
+      headers: this._headers,
+      // credentials: "include",
+    });
+  }
 }
 
 export const api = new MainApi(apiConfig);

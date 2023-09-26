@@ -1,12 +1,27 @@
 import "./MoviesCard.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { api } from "../../../utils/MainApi";
 
-export default function MoviesCard({ movie, showMode = "" }) {
-  const [isLiked, setIsLiked] = useState(false);
-
-  function handleLikeClick() {
-    setIsLiked(!isLiked);
-  }
+export default function MoviesCard({
+  movie,
+  showMode = "",
+  onCardDelete,
+  onCardCreate,
+  savedMovies,
+}) {
+  // const [isLiked, setIsLiked] = useState(false);
+  const handleDeleteClick = () => onCardDelete(movie);
+  const handleCreateClick = () => {
+    isLiked=true;
+    onCardCreate(movie);}
+    
+  let isLiked = false;
+  isLiked = savedMovies.some((item) => {
+    if (item.movieId === movie.movieId) {
+      return true;
+    }
+    return false;
+  });
 
   return (
     <li className="movie">
@@ -19,6 +34,7 @@ export default function MoviesCard({ movie, showMode = "" }) {
         <button
           type="button"
           className={`button movie__button movie__button-close`}
+          onClick={handleDeleteClick}
         ></button>
       ) : (
         <button
@@ -26,7 +42,8 @@ export default function MoviesCard({ movie, showMode = "" }) {
           className={`button movie__button ${
             isLiked ? "movie__button-like" : "movie__button-save"
           }`}
-          onClick={handleLikeClick}
+          onClick={handleCreateClick}
+          disabled={isLiked}
         ></button>
       )}
 
