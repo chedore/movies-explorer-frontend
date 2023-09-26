@@ -3,7 +3,12 @@ import { useState } from "react";
 import './CheckBox.css'
 
 const CheckBox = ({ onFilter }) => {
-  const [shorts, setShorts] = useState(true);
+  const [shorts, setShorts] = useState(false);
+
+  const handleSubmit = () => {
+    onFilter(!shorts)
+    setShorts(!shorts)
+  }
   return (
     <section className='checkbox'>
       <input
@@ -11,7 +16,7 @@ const CheckBox = ({ onFilter }) => {
         id='checkbox'
         className='button checkbox__input'
         checked={shorts}
-        onChange={() => { setShorts(!shorts) }}
+        onChange={handleSubmit}
       />
       <label
         htmlFor='checkbox'

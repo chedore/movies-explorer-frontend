@@ -1,4 +1,5 @@
 export const regexName = /^[a-zA-zа-яА-ЯёЁ -]+$/u;
+// eslint-disable-next-line no-useless-escape
 export const regexEmail = /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u;
 
 // конфиг для api (работа с сервером)
@@ -16,6 +17,26 @@ export const apiMoviesConfig = {
     "Content-Type": "application/json"
   }
 }
+
+export const MOVIES_NOT_FOUND = 'Ничего не найдено';
+export const KEYWORD_NOT_FOUND = 'Нужно ввести ключевое слово';
+export const RECEIVING_DATA_ERROR = 'Во время запроса произошла ошибка. ' +
+'Возможно, проблема с соединением или сервер недоступен. ' +
+'Подождите немного и попробуйте ещё раз.';
+
+export const WIDTH_3_MOVIES = 1200;
+export const WIDTH_2_MOVIES = 750;
+
+export const MOVIES_3_RENDER = 4;
+export const MOVIES_2_RENDER = 4;
+export const MOVIES_1_RENDER = 5;
+
+export const MOVIES_3_ADD = 4;
+export const MOVIES_2_ADD = 4;
+export const MOVIES_1_ADD = 2;
+
+export const SHORT_FILM = 40;
+
 
 export const startCards = [
   {
