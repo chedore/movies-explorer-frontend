@@ -28,17 +28,16 @@ export default function Movies({
 }) {
   const app = useContext(AppContext);
   const [errorMessage, setErrorMessage] = useState("");
+  const { width } = useWindowWidth();
   const searchMoviesDefault =
     JSON.parse(localStorage.getItem("searchMovies")) ?? [];
+ 
   const isShorts = JSON.parse(localStorage.getItem("shorts")) ?? false;
   const inputSearchDefault = localStorage.getItem("search") ?? "";
   const [searchMovies, setSearchMovies] = useState(searchMoviesDefault);
-  const { width } = useWindowWidth();
-  // const updateCountMovies = localStorage.getItem("counter") ?? handleStartMoviesCards(width);
 
-  const [defaultMoviesCards, setDefaultMoviesCards] = useState(
-    handleStartMoviesCards(width)
-  );
+  const [defaultMoviesCards, setDefaultMoviesCards] = useState(handleStartMoviesCards(width));
+
 
   // поиск
   function handleSubmit(search, shorts) {
@@ -80,9 +79,7 @@ export default function Movies({
 
   // кнопка ещё
   function handleAddMoviesCards() {
-    const step = handleUploadMoreCards(width, defaultMoviesCards);
-    setDefaultMoviesCards(step);
-    // localStorage.setItem("counter", step);
+    setDefaultMoviesCards(handleUploadMoreCards(width, defaultMoviesCards));
   }
 
   return (

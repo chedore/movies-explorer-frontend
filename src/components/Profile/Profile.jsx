@@ -8,7 +8,7 @@ export default function Profile({ onLogout, onUserUpdate }) {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const { formValue, handleChange, isValid } = useFormValidation(1);
+  const { formValue, handleChange, isValid } = useFormValidation(2);
 
   const handleSubmit = (e) => {
     e.preventDefault();

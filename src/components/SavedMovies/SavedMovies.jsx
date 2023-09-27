@@ -19,7 +19,6 @@ export default function SavedMovies({ setIsLoading, onSavedMovie, onDeleteMovie,
   const [errorMessage, setErrorMessage] = useState("");
   const [searchMovies, setSearchMovies] = useState([]);
   const [isSearchActive, setIsSearchActive] = useState(false);
-  console.log(savedMovies)
 
   // поиск
   function handleSubmit(search, shorts) {

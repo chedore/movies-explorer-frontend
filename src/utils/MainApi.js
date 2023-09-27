@@ -90,6 +90,7 @@ class MainApi {
     return this._request_token(`/movies/${movieId}`, {
       method: "DELETE",
       headers: this._headers,
+      // credentials: "include",
     });
   }
 
