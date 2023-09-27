@@ -3,39 +3,63 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-import { useState, useEffect } from "react";
-import { api } from "../../utils/MainApi";
+import { useContext, useState } from "react";
+import Preloader from "../Preloader/Preloader";
+import AppContext from "../../contexts/AppContext";
+import {
+  onFilteredMovies
+} from "../../utils/MoviesFilter";
+import {
+  KEYWORD_NOT_FOUND,
+  MOVIES_NOT_FOUND,
+} from "../../utils/constants";
 
+export default function SavedMovies({ setIsLoading, onSavedMovie, onDeleteMovie, savedMovies }) {
+  const app = useContext(AppContext);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [searchMovies, setSearchMovies] = useState([]);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  console.log(savedMovies)
 
-export default function SavedMovies() {
-  const [massCards, setMassCards] = useState([]);
+  // поиск
+  function handleSubmit(search, shorts) {
+    setIsSearchActive(true);
+    setIsLoading(true);
 
+    // отфильтровываем фильмы по ключевому слову и короткометражки
+    const filterMovies = onFilteredMovies(savedMovies, search, shorts);
+    setSearchMovies(filterMovies);
 
-  useEffect(() => {
-    const promises = [api.getMovies()];
-    Promise.all(promises)
-      .then(([cards]) => {
-        setMassCards(cards);
-      })
-      .catch((error) => alert(error));
-  }, []);
+    // сообщения об ошибке при поиске
+    if (search.length === 0) {
+      setErrorMessage(KEYWORD_NOT_FOUND);
+    } else if (
+      savedMovies.length === 0 ||
+      filterMovies.length === 0
+    ) {
+      setErrorMessage(MOVIES_NOT_FOUND);
+    } else {
+      setErrorMessage("");
+    }
 
-  function handleCardDelete (movie) {
-    api
-      .deleteMovie(movie._id)
-      .then(() => {
-        setMassCards(state => state.filter((c) => c._id !== movie._id));
-      })
-      .catch((error) => alert(error));
+    setIsLoading(false);
+
   }
-  
 
   return (
     <>
       <Header />
       <main>
-        <SearchForm />
-        <MoviesCardList showMode={'saved-movies'} movies={massCards} onCardDelete={handleCardDelete} savedMovies={massCards}/>
+        <SearchForm onSearch={handleSubmit}/>
+        {app.isLoading && <Preloader />}
+        <MoviesCardList
+          showMode={"saved-movies"}
+          errorMessage={errorMessage}
+          movies={isSearchActive ? searchMovies : savedMovies}
+          onSavedMovie={onSavedMovie}
+          onDeleteMovie={onDeleteMovie}
+          savedMovies={savedMovies}
+        />
       </main>
       <Footer />
     </>

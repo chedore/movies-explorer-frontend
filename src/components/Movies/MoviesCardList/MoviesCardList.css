@@ -19,6 +19,23 @@
   row-gap: 60px;
 }
 
+.moviescard__errorcontainer {
+  display: flex;
+  margin: 60px 0 80px 0;
+  padding: 0;
+  width: 100%
+}
+
+.moviescard__texterror {
+  color: #ee3465;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0 auto;
+}
+
 @media screen and (max-width: 1200px) {
   .moviescard__container {
     width: 708px;

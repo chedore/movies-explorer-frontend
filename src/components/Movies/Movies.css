@@ -27,17 +27,6 @@
   border: 1px solid #424242;
 }
 
-.moviesempty {
-  color: #ee3465;
-  text-align: center;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  margin: 0 auto;
-
-}
-
 @media screen and (max-width: 750px) {
   .line {
     width: 292px;

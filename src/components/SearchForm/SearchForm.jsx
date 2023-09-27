@@ -3,10 +3,10 @@ import { useState } from "react";
 import button from "../../images/search_form_button.svg";
 import CheckBox from "../CheckBox/CheckBox";
 
-export default function SearchForm({ onSearch }) {
+export default function SearchForm({onSearch, isShorts, inputSearchDefault}) {
   const [formValue, setFormValue] = useState({
-    search: "",
-    isShots: false,
+    search: inputSearchDefault ?? '',
+    isShots: isShorts ?? false,
   });
 
   const handleChange = (e) => {
@@ -28,6 +28,7 @@ export default function SearchForm({ onSearch }) {
     onSearch(search, isShots);
   };
 
+
   return (
     <section className="searchform">
       <div className="searchform__container">
@@ -38,6 +39,7 @@ export default function SearchForm({ onSearch }) {
             className="searchform__container-form-input"
             placeholder="Фильм"
             name="search"
+            value={formValue.search || ''}
             required
             onChange={handleChange}
           />
@@ -49,7 +51,7 @@ export default function SearchForm({ onSearch }) {
           />
         </form>
 
-        <CheckBox onFilter={handleCheckBox} />
+        <CheckBox onFilter={handleCheckBox} isShorts={isShorts}/>
       </div>
     </section>
   );

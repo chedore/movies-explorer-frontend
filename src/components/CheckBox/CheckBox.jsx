@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import './CheckBox.css'
 
-const CheckBox = ({ onFilter }) => {
-  const [shorts, setShorts] = useState(false);
+const CheckBox = ({ onFilter, isShorts }) => {
+  const [shorts, setShorts] = useState(isShorts ?? false,);
 
   const handleSubmit = () => {
     onFilter(!shorts)

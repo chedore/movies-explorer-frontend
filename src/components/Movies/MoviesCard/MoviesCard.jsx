@@ -4,16 +4,15 @@ import { convertDuration } from "../../../utils/MovieTransform";
 export default function MoviesCard({
   movie,
   showMode = "",
-  onCardDelete,
-  onCardCreate,
+  onSavedMovie,
+  onDeleteMovie,
   savedMovies,
 }) {
-  // const [isLiked, setIsLiked] = useState(false);
-  const handleDeleteClick = () => onCardDelete(movie);
   const handleCreateClick = () => {
     isLiked = true;
-    onCardCreate(movie);
+    onSavedMovie(movie);
   };
+  const handleDeleteClick = () => onDeleteMovie(movie);
 
   let isLiked = false;
   isLiked = savedMovies.some((item) => {
@@ -25,11 +24,20 @@ export default function MoviesCard({
 
   return (
     <li className="movie">
-      <img
-        className="movie__image"
-        src={movie.image}
-        alt={`Постер к фильму: ${movie.name}`}
-      />
+      <>
+        <a
+          href={movie.trailerLink}
+          className="movies-card__link"
+          target="_blank"
+          rel="nofollow noreferrer"
+        >
+          <img
+            className="movie__image"
+            src={movie.image}
+            alt={`Постер к фильму: ${movie.name}`}
+          />
+        </a>
+      </>
       {showMode ? (
         <button
           type="button"

@@ -3,94 +3,113 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-import { useState, useContext, useEffect } from "react";
-import { CurrentAllMoviesContext } from "../../contexts/CurrentAllMoviesContext";
-import { KEYWORD_NOT_FOUND, MOVIES_NOT_FOUND } from "../../utils/constants";
-import useWindowWidth from "../../utils/WindowWidth";
-import { api } from "../../utils/MainApi";
+import { apiMovies } from "../../utils/MoviesApi";
+import Preloader from "../Preloader/Preloader";
+import AppContext from "../../contexts/AppContext";
+import { useContext, useState } from "react";
 import {
-  handleSearch,
-  handleFilter,
+  RECEIVING_DATA_ERROR,
+  KEYWORD_NOT_FOUND,
+  MOVIES_NOT_FOUND,
+} from "../../utils/constants";
+import {
+  onFilteredMovies,
   handleStartMoviesCards,
   handleUploadMoreCards,
 } from "../../utils/MoviesFilter";
+import transformMovieHandle from "../../utils/MovieTransform";
+import useWindowWidth from "../../utils/WindowWidth";
 
-export default function Movies() {
-  const allMovies = useContext(CurrentAllMoviesContext);
-  const [massCards, setMassCards] = useState([]);
-  const [massSaveCards, setMassSaveCards] = useState([]);
-  const [isEmpty, setIsEmpty] = useState(true);
+export default function Movies({
+  setIsLoading,
+  onSavedMovie,
+  onDeleteMovie,
+  savedMovies,
+}) {
+  const app = useContext(AppContext);
+  const [errorMessage, setErrorMessage] = useState("");
+  const searchMoviesDefault =
+    JSON.parse(localStorage.getItem("searchMovies")) ?? [];
+  const isShorts = JSON.parse(localStorage.getItem("shorts")) ?? false;
+  const inputSearchDefault = localStorage.getItem("search") ?? "";
+  const [searchMovies, setSearchMovies] = useState(searchMoviesDefault);
   const { width } = useWindowWidth();
-  const [defaultMoviesCards, setDefaultMoviesCards] = useState(0);
+  // const updateCountMovies = localStorage.getItem("counter") ?? handleStartMoviesCards(width);
 
-  useEffect(() => {
-    handleStartMoviesCards();
-  }, [massCards, width]);
+  const [defaultMoviesCards, setDefaultMoviesCards] = useState(
+    handleStartMoviesCards(width)
+  );
 
-  useEffect(() => {
-    const promises = [api.getMovies()];
-    Promise.all(promises)
-      .then(([cards]) => {
-        setMassSaveCards(cards);
+  // поиск
+  function handleSubmit(search, shorts) {
+    setIsLoading(true);
+    apiMovies
+      .getMovies()
+      .then((allMovies) => {
+        localStorage.setItem("search", search);
+        localStorage.setItem("shorts", shorts);
+
+        // отфильтровываем фильмы по ключевому слову и короткометражки
+        const filterMovies = onFilteredMovies(allMovies, search, shorts);
+        const transformFilterMovies = transformMovieHandle(filterMovies);
+        localStorage.setItem(
+          "searchMovies",
+          JSON.stringify(transformFilterMovies)
+        );
+        setSearchMovies(transformFilterMovies);
+
+        // сообщения об ошибке при поиске
+        if (search.length === 0) {
+          setErrorMessage(KEYWORD_NOT_FOUND);
+        } else if (
+          transformFilterMovies.length === 0 ||
+          allMovies.length === 0
+        ) {
+          setErrorMessage(MOVIES_NOT_FOUND);
+        } else {
+          setErrorMessage("");
+        }
       })
-      .catch((error) => alert(error));
-  }, []);
-
-  function handleSearchMovies(search, isShortFilms) {
-    if (search.length === 0) {
-      setIsEmpty(false);
-    } else {
-      // если ключевое слово заполненно
-      setIsEmpty(true);
-      setDefaultMoviesCards(handleStartMoviesCards(width));
-      let moviesToRender = handleSearch(allMovies, search);
-      if (isShortFilms) {
-        moviesToRender = handleFilter(moviesToRender);
-      }
-      setMassCards(moviesToRender);
-    }
+      .catch(() => {
+        setErrorMessage(RECEIVING_DATA_ERROR);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
+  // кнопка ещё
   function handleAddMoviesCards() {
-    setDefaultMoviesCards(handleUploadMoreCards(width, defaultMoviesCards));
-  }
-
-  function handleCardCreate(movie) {
-    api
-      .createMovie({ movie })
-      .then((newCard) => {
-        setMassSaveCards([newCard, ...massSaveCards]);
-      })
-      .catch((error) => alert(error));
+    const step = handleUploadMoreCards(width, defaultMoviesCards);
+    setDefaultMoviesCards(step);
+    // localStorage.setItem("counter", step);
   }
 
   return (
     <>
       <Header />
       <main>
-        <SearchForm onSearch={handleSearchMovies} />
-        {massCards.length === 0 ? (
-          <p className="moviesempty">{MOVIES_NOT_FOUND}</p>
-        ) : (
-          <MoviesCardList
-            movies={massCards.slice(0, defaultMoviesCards)}
-            onCardCreate={handleCardCreate}
-            savedMovies={massSaveCards}
-          />
-        )}
-
+        <SearchForm
+          onSearch={handleSubmit}
+          isShorts={isShorts}
+          inputSearchDefault={inputSearchDefault}
+        />
+        {app.isLoading && <Preloader />}
+        <MoviesCardList
+          errorMessage={errorMessage}
+          movies={searchMovies.slice(0, defaultMoviesCards)}
+          onSavedMovie={onSavedMovie}
+          onDeleteMovie={onDeleteMovie}
+          savedMovies={savedMovies}
+        />
         <section className="moviesbytton">
-          {!isEmpty ? (
-            <p className="moviesempty">{KEYWORD_NOT_FOUND}</p>
-          ) : (
-            <button
-              type="button"
-              className="bytton moviesbytton-moremovies"
-              onClick={handleAddMoviesCards}
-            >
-              Ещё
-            </button>
-          )}
+          <button
+            type="button"
+            className="bytton moviesbytton-moremovies"
+            onClick={handleAddMoviesCards}
+          >
+            Ещё
+          </button>
         </section>
       </main>
       <Footer />

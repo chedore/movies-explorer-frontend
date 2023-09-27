@@ -11,8 +11,8 @@ import {
 } from "./constants";
 
 //фильтруем по ключевому слову
-export function handleSearch(mass, keyword) {
-  return mass.filter((movie) => {
+function handleSearch(movies, keyword) {
+  return movies.filter((movie) => {
     const a = keyword.toLowerCase().trim();
     return (
       movie.nameRU.toLowerCase().indexOf(a) !== -1 ||
@@ -22,17 +22,29 @@ export function handleSearch(mass, keyword) {
 }
 
 //фильтруем по продолжительности
-export function handleFilter(moviesArray) {
-  return moviesArray.filter((movie) => {
+function handleFilter(movies) {
+  return movies.filter((movie) => {
     return movie.duration <= SHORT_FILM;
   });
+}
+
+export function onFilteredMovies(movies, keyword, shorts) {
+  let moviesToRender = [];
+  if (keyword.length !== 0) {
+    moviesToRender = handleSearch(movies, keyword);
+    if (shorts) {
+      moviesToRender = handleFilter(moviesToRender);
+    }
+    return moviesToRender;
+  }
 }
 
 export function handleStartMoviesCards(width) {
   if (width > WIDTH_3_MOVIES) return MOVIES_3_RENDER;
   else if (width <= WIDTH_3_MOVIES && width > WIDTH_2_MOVIES)
     return MOVIES_2_RENDER;
-  else return MOVIES_1_RENDER;
+  else {console.log('тут')
+  return MOVIES_1_RENDER};
 }
 
 export function handleUploadMoreCards(width, defaul) {
