@@ -1,25 +1,30 @@
 import "./Profile.css";
 import "../Form/Form.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 import { useFormValidation } from "../../hooks/useFormValidation";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+
 export default function Profile({ onLogout, onUserUpdate }) {
+  const user = useContext(CurrentUserContext);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
   const { formValue, handleChange, isValid } = useFormValidation(2);
+  const [isEditProfile, setIsEditProfile] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSaveSubmit = (e) => {
     e.preventDefault();
     const { name, email } = formValue;
     onUserUpdate(name, email);
+    setIsEditProfile(false);
   };
 
   useEffect(() => {
-    setName(formValue.name);
-    setEmail(formValue.email);
-  }, [formValue]);
+    setName(!isEditProfile ? user.name : formValue.name);
+    setEmail(!isEditProfile ? user.email : formValue.email);
+  }, [user, formValue, isEditProfile]);
 
   return (
     <>
@@ -36,7 +41,7 @@ export default function Profile({ onLogout, onUserUpdate }) {
               className="input profile__input"
               placeholder="Введите имя"
               name="name"
-              value={name}
+              value={name ?? ""}
               minLength="2"
               maxLength="40"
               required
@@ -50,7 +55,7 @@ export default function Profile({ onLogout, onUserUpdate }) {
               id="form-email-input"
               className="input profile__input"
               placeholder="Введите почту"
-              value={email}
+              value={email ?? ""}
               name="email"
               required
               onChange={handleChange}
@@ -58,13 +63,28 @@ export default function Profile({ onLogout, onUserUpdate }) {
           </div>
         </form>
         <div className="profile__buttons">
-          <button
-            className={`button profile__button-edit ${!isValid && 'form__button_disabled'}`}
-            onClick={handleSubmit}
-            disabled={!isValid}
-          >
-            Редактировать
-          </button>
+          {isEditProfile ? (
+            <button
+              className={`button profile__button-edit ${
+                !isValid && "form__button_disabled"
+              }`}
+              onClick={handleSaveSubmit}
+              disabled={!isValid}
+            >
+              Сохранить
+            </button>
+          ) : (
+            <button
+              className={`button profile__button-edit ${
+                !isValid && "form__button_disabled"
+              }`}
+              onClick={(e) => {
+                setIsEditProfile(true);
+              }}
+            >
+              Редактировать
+            </button>
+          )}
           <Link
             className="link profile__link-exit"
             to="/signin"

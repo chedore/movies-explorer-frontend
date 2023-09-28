@@ -1,13 +1,10 @@
-import { useState , useContext} from "react";
+import { useState } from "react";
 import { regexName, regexEmail } from "../utils/constants";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-
-export function useFormValidation(limit=3) {
-  const user = useContext(CurrentUserContext);
+export function useFormValidation(limit = 3) {
   const [formValue, setFormValue] = useState({
-    name: user.name || "",
-    email: user.email || "",
+    name: "",
+    email: "",
     password: "",
   });
   const [isValid, setIsValid] = useState(false);
@@ -21,17 +18,10 @@ export function useFormValidation(limit=3) {
     },
   });
 
-  const advancedValidation = (
-    name,
-    value,
-    setErrors,
-    errors,
-    validations
-    
-  ) => {
-    validations[name]=(!regexName.test(value))
+  const advancedValidation = (name, value, setErrors, errors, validations) => {
     switch (name) {
       case "name":
+        validations[name] = regexName.test(value);
         if (!regexName.test(value)) {
           setErrors({
             ...errors,
@@ -40,6 +30,7 @@ export function useFormValidation(limit=3) {
         }
         break;
       case "email":
+        validations[name] = regexEmail.test(value);
         if (!regexEmail.test(value)) {
           setErrors({
             ...errors,
@@ -48,6 +39,7 @@ export function useFormValidation(limit=3) {
         }
         break;
       case "password":
+        validations[name] = true;
         break;
       default:
         break;
@@ -56,7 +48,6 @@ export function useFormValidation(limit=3) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
 
     // заполняем данные формы
     setFormValue({
@@ -75,11 +66,10 @@ export function useFormValidation(limit=3) {
       ...validations,
       [name]: e.target.checkValidity(),
     });
-    
-    if (!e.target.validationMessage)
+
+    if (!e.target.validationMessage) {
       advancedValidation(name, value, setErrors, errors, validations);
-    else
-      validations[name]=false
+    } else validations[name] = false;
 
     setIsValid(validations.isResValid());
   };

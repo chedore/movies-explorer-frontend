@@ -91,6 +91,7 @@ function App() {
     localStorage.removeItem("shorts");
     localStorage.removeItem("search");
     localStorage.removeItem("searchMovies");
+    localStorage.removeItem("allMovies");
   }
 
   function handleUserUpdate(name, email) {

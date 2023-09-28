@@ -7,6 +7,7 @@ export const convertDuration = (mins) => {
 }  
 
 export default function transformMovieHandle(movie) {
+  if (movie.length === 0) return []
   return (
     movie.map((movie) => ({
       country: movie.country,
