@@ -6,7 +6,7 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import { apiMovies } from "../../utils/MoviesApi";
 import Preloader from "../Preloader/Preloader";
 import AppContext from "../../contexts/AppContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import {
   RECEIVING_DATA_ERROR,
   KEYWORD_NOT_FOUND,
@@ -29,17 +29,37 @@ export default function Movies({
   const app = useContext(AppContext);
   const [errorMessage, setErrorMessage] = useState("");
   const { width } = useWindowWidth();
-  const searchMoviesDefault =
-    JSON.parse(localStorage.getItem("searchMovies")) ?? [];
-  const isShorts = JSON.parse(localStorage.getItem("shorts")) ?? false;
-  const inputSearchDefault = localStorage.getItem("search") ?? "";
-  const [searchMovies, setSearchMovies] = useState(searchMoviesDefault);
+
+  const [allMovies, setAllMovies] = useState(
+    JSON.parse(localStorage.getItem("allMovies")) ?? []
+  );
+
+  const [searchMovies, setSearchMovies] = useState(
+    JSON.parse(localStorage.getItem("searchMovies")) ?? []
+  );
+
+  const [shorts, setShorts] = useState( false  );
+  const [search, setSearch] = useState("");
 
   const [defaultMoviesCards, setDefaultMoviesCards] = useState(
     handleStartMoviesCards(width)
   );
 
-  function filterMovies(allMovies, search, shorts) {
+  //поведение при обновлении страницы
+  useEffect(() => {
+    console.log("обновлен MoviesCardList", allMovies);
+    if (allMovies.length > 0) {
+      filterMovies(allMovies);
+    }
+  }, [allMovies, search, shorts]);
+
+  //поведение при обновлении страницы
+  useEffect(() => {
+    console.log("страница обновлена");
+  }, []);
+
+  function filterMovies(allMovies) {
+    console.log(`search=${search}, shorts=${shorts}`)
     // отфильтровываем фильмы по ключевому слову и короткометражки
     const filterMovies = onFilteredMovies(allMovies, search, shorts) ?? [];
     const transformFilterMovies = transformMovieHandle(filterMovies);
@@ -56,20 +76,19 @@ export default function Movies({
     setSearchMovies(transformFilterMovies);
   }
 
-  // поиск
-  function handleSubmit(search, shorts) {
+  // // поиск
+  async function handleSubmit(searchForm, shortsForm) {
     setIsLoading(true);
-    localStorage.setItem("search", search);
-    localStorage.setItem("shorts", shorts);
-
-    const allMovies = JSON.parse(localStorage.getItem("allMovies")) ?? [];
-
+    setSearch(searchForm)
+    setShorts(shortsForm)
     if (allMovies.length === 0) {
-      apiMovies
+      const moviesFromServer = await apiMovies
         .getMovies()
-        .then((allMovies) => {
-          localStorage.setItem("allMovies", JSON.stringify(allMovies));
-          filterMovies(allMovies, search, shorts);
+        .then((movies) => {
+          localStorage.setItem("allMovies", JSON.stringify(movies));
+          setAllMovies(movies);
+          console.log("получено от сервера:", movies.length);
+
         })
         .catch(() => {
           setErrorMessage(RECEIVING_DATA_ERROR);
@@ -77,13 +96,11 @@ export default function Movies({
         .finally(() => {
           setIsLoading(false);
         });
-    } else {
-      filterMovies(allMovies, search, shorts);
     }
     setIsLoading(false);
   }
 
-  // кнопка ещё
+  // // кнопка ещё
   function handleAddMoviesCards() {
     setDefaultMoviesCards(handleUploadMoreCards(width, defaultMoviesCards));
   }
@@ -94,8 +111,8 @@ export default function Movies({
       <main>
         <SearchForm
           onSearch={handleSubmit}
-          isShorts={isShorts}
-          inputSearchDefault={inputSearchDefault}
+          isShorts={shorts}
+          inputSearchDefault={search}
         />
         {app.isLoading && <Preloader />}
         <MoviesCardList

@@ -29,14 +29,14 @@ function App() {
     if (jwt && loggedIn) {
       checkTocken();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
   useEffect(() => {
     if (jwt && loggedIn) {
       getSavedMovies();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
   function checkTocken() {
@@ -47,7 +47,7 @@ function App() {
         .then((user) => {
           setLoggedIn(true);
           setCurrentUser(user);
-          navigate(`${pathname}${search}`, { replace: true });
+          navigate(`${pathname}${search}`, { replace: false });
         })
         .catch((err) => {
           setLoggedIn(false);
@@ -131,7 +131,7 @@ function App() {
     api
       .deleteMovie(movie._id)
       .then(() => {
-        setSavedMovies(state => state.filter((c) => c._id !== movie._id));
+        setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
       })
       .catch((error) => alert(error));
   }
