@@ -32,6 +32,9 @@ function App() {
   const { pathname, search } = useLocation();
 
   useEffect(() => {
+    if (!loggedIn) {navigate("/", { replace: true });}
+
+  
     if (jwt && loggedIn) {
       checkTocken();
     }
@@ -47,6 +50,7 @@ function App() {
 
   function checkTocken() {
     const jwt = localStorage.getItem("jwt");
+
     if (jwt) {
       api
         .authentication()
@@ -62,8 +66,16 @@ function App() {
         });
     }
   }
+  // функция для задержки изменения текста кнопки
+  function postponeLoading() {
+      const timeout = window.setTimeout(() => {
+        setIsLoading(false);
+        window.clearTimeout(timeout);
+      }, 400);
+  }
 
   function handleLogin(email, password) {
+    // setIsLoading(true);
     api
       .login({ email, password })
       .then((res) => {
@@ -74,10 +86,14 @@ function App() {
       })
       .catch((err) => {
         alert(err);
+      })
+      .finally(() => {
+        postponeLoading();
       });
   }
 
   function handleRegister(name, email, password) {
+    // setIsLoading(true);
     api
       .register({ name, email, password })
       .then((res) => {
@@ -85,6 +101,9 @@ function App() {
       })
       .catch((err) => {
         alert(err);
+      })
+      .finally(() => {
+        postponeLoading();
       });
   }
 
@@ -92,12 +111,13 @@ function App() {
     setCurrentUser({});
     setSavedMovies([]);
     setLoggedIn(false);
+
     localStorage.clear();
-    navigate("/", { replace: false });
     
   }
 
   function handleUserUpdate(name, email) {
+    // setIsLoading(true);
     api
       .userProfile({ name, email })
       .then((user) => {
@@ -105,6 +125,9 @@ function App() {
       })
       .catch((err) => {
         alert(err);
+      })
+      .finally(() => {
+        postponeLoading();
       });
   }
 
