@@ -23,16 +23,17 @@ export const KEYWORD_NOT_FOUND = 'Нужно ввести ключевое сл�
 export const RECEIVING_DATA_ERROR = 'Во время запроса произошла ошибка. ' +
 'Возможно, проблема с соединением или сервер недоступен. ' +
 'Подождите немного и попробуйте ещё раз.';
+export const EDIT_PROFILE_SUCCESS = "Обновление данных прошло успешно"
 
 export const WIDTH_3_MOVIES = 1200;
 export const WIDTH_2_MOVIES = 750;
 
-export const MOVIES_3_RENDER = 4;
-export const MOVIES_2_RENDER = 4;
+export const MOVIES_3_RENDER = 12;
+export const MOVIES_2_RENDER = 8;
 export const MOVIES_1_RENDER = 5;
 
-export const MOVIES_3_ADD = 4;
-export const MOVIES_2_ADD = 4;
+export const MOVIES_3_ADD = 3;
+export const MOVIES_2_ADD = 2;
 export const MOVIES_1_ADD = 2;
 
 export const SHORT_FILM = 40;

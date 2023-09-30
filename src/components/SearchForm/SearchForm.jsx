@@ -1,13 +1,18 @@
 import "./SearchForm.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import button from "../../images/search_form_button.svg";
 import CheckBox from "../CheckBox/CheckBox";
+import { KEYWORD_NOT_FOUND } from "../../utils/constants";
 
-export default function SearchForm({onSearch, isShorts, inputSearchDefault}) {
+export default function SearchForm({ onSearch, isShorts, inputSearchDefault }) {
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [formValue, setFormValue] = useState({
-    search: inputSearchDefault ?? '',
+    search: inputSearchDefault ?? "",
     isShots: isShorts ?? false,
   });
+
+  useEffect(() => {}, [errorMessage]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,15 +24,22 @@ export default function SearchForm({onSearch, isShorts, inputSearchDefault}) {
   };
 
   const handleCheckBox = (v) => {
-    formValue.isShots = v
+    formValue.isShots = v;
+    const { search, isShots } = formValue;
+    onSearch(search, isShots);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { search, isShots } = formValue;
+
+    if (search.length === 0) {
+      setErrorMessage(KEYWORD_NOT_FOUND);
+    } else {
+      setErrorMessage("");
+    }
     onSearch(search, isShots);
   };
-
 
   return (
     <section className="searchform">
@@ -39,7 +51,7 @@ export default function SearchForm({onSearch, isShorts, inputSearchDefault}) {
             className="searchform__container-form-input"
             placeholder="Фильм"
             name="search"
-            value={formValue.search || ''}
+            value={formValue.search || ""}
             required
             onChange={handleChange}
           />
@@ -50,8 +62,11 @@ export default function SearchForm({onSearch, isShorts, inputSearchDefault}) {
             alt="Поиск"
           />
         </form>
+        <span className={`form__span ${errorMessage && "form__span-error"}`}>
+          {KEYWORD_NOT_FOUND}
+        </span>
 
-        <CheckBox onFilter={handleCheckBox} isShorts={isShorts}/>
+        <CheckBox onFilter={handleCheckBox} isShorts={isShorts} />
       </div>
     </section>
   );

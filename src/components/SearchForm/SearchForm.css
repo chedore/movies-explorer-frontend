@@ -30,9 +30,6 @@
   box-sizing: border-box;
 }
 
-
-
-
 @media screen and (max-width: 1200px) {
   .searchform__container {
     width: 708px;

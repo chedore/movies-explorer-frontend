@@ -122,5 +122,9 @@
     top: 10px;
     right: 10px;
   }
+  .movie__button-close {
+    visibility: visible;
+    opacity: 1;
+  }
 
 }

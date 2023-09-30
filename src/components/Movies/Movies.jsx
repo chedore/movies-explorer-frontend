@@ -7,11 +7,7 @@ import { apiMovies } from "../../utils/MoviesApi";
 import Preloader from "../Preloader/Preloader";
 import AppContext from "../../contexts/AppContext";
 import { useContext, useState, useEffect } from "react";
-import {
-  RECEIVING_DATA_ERROR,
-  KEYWORD_NOT_FOUND,
-  MOVIES_NOT_FOUND,
-} from "../../utils/constants";
+import { RECEIVING_DATA_ERROR, MOVIES_NOT_FOUND } from "../../utils/constants";
 import {
   onFilteredMovies,
   handleStartMoviesCards,
@@ -38,8 +34,10 @@ export default function Movies({
     JSON.parse(localStorage.getItem("searchMovies")) ?? []
   );
 
-  const [shorts, setShorts] = useState( false  );
-  const [search, setSearch] = useState("");
+  const [shorts, setShorts] = useState(
+    JSON.parse(localStorage.getItem("shorts")) ?? false
+  );
+  const [search, setSearch] = useState(localStorage.getItem("search") ?? "");
 
   const [defaultMoviesCards, setDefaultMoviesCards] = useState(
     handleStartMoviesCards(width)
@@ -47,27 +45,24 @@ export default function Movies({
 
   //поведение при обновлении страницы
   useEffect(() => {
-    console.log("обновлен MoviesCardList", allMovies);
     if (allMovies.length > 0) {
       filterMovies(allMovies);
     }
   }, [allMovies, search, shorts]);
 
-  //поведение при обновлении страницы
+  //поведение при обновлении ширены страницы
   useEffect(() => {
-    console.log("страница обновлена");
-  }, []);
+    setDefaultMoviesCards(handleStartMoviesCards(width));
+  }, [width]);
 
   function filterMovies(allMovies) {
-    console.log(`search=${search}, shorts=${shorts}`)
     // отфильтровываем фильмы по ключевому слову и короткометражки
-    const filterMovies = onFilteredMovies(allMovies, search, shorts) ?? [];
+    const filterMovies = (search.length === 0? [] :onFilteredMovies(allMovies, search, shorts));
+
     const transformFilterMovies = transformMovieHandle(filterMovies);
 
     // сообщения об ошибке при поиске
-    if (search.length === 0) {
-      setErrorMessage(KEYWORD_NOT_FOUND);
-    } else if (filterMovies.length === 0) {
+    if (filterMovies.length === 0) {
       setErrorMessage(MOVIES_NOT_FOUND);
     } else {
       setErrorMessage("");
@@ -79,16 +74,18 @@ export default function Movies({
   // // поиск
   async function handleSubmit(searchForm, shortsForm) {
     setIsLoading(true);
-    setSearch(searchForm)
-    setShorts(shortsForm)
+    setSearch(searchForm);
+    setShorts(shortsForm);
+    setDefaultMoviesCards(handleStartMoviesCards(width));
+    localStorage.setItem("search", searchForm);
+    localStorage.setItem("shorts", shortsForm);
+
     if (allMovies.length === 0) {
       const moviesFromServer = await apiMovies
         .getMovies()
         .then((movies) => {
           localStorage.setItem("allMovies", JSON.stringify(movies));
           setAllMovies(movies);
-          console.log("получено от сервера:", movies.length);
-
         })
         .catch(() => {
           setErrorMessage(RECEIVING_DATA_ERROR);

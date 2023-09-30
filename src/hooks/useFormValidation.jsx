@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { regexName, regexEmail } from "../utils/constants";
 
 export function useFormValidation(limit = 3) {
@@ -7,6 +7,7 @@ export function useFormValidation(limit = 3) {
     email: "",
     password: "",
   });
+
   const [isValid, setIsValid] = useState(false);
   const [errors, setErrors] = useState({});
   const [validations, setValidations] = useState({
@@ -62,10 +63,11 @@ export function useFormValidation(limit = 3) {
     });
 
     // заполняем валидацию
-    setValidations({
-      ...validations,
-      [name]: e.target.checkValidity(),
-    });
+    validations[name] = e.target.checkValidity();
+    // setValidations({
+    //   ...validations,
+    //   [name]: e.target.checkValidity(),
+    // });
 
     if (!e.target.validationMessage) {
       advancedValidation(name, value, setErrors, errors, validations);
@@ -74,5 +76,5 @@ export function useFormValidation(limit = 3) {
     setIsValid(validations.isResValid());
   };
 
-  return { formValue, handleChange, isValid, errors };
+  return { formValue, handleChange, isValid, errors , setFormValue, setIsValid};
 }

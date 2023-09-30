@@ -9,6 +9,7 @@ export default function MoviesCardList({
   onDeleteMovie,
   savedMovies,
 }) {
+
   return (
     <>
       {errorMessage ? (
@@ -24,7 +25,7 @@ export default function MoviesCardList({
                 <MoviesCard
                   movie={movie}
                   showMode={showMode}
-                  key={i}
+                  key={movie.id || movie.movieId}
                   onSavedMovie={onSavedMovie}
                   onDeleteMovie={onDeleteMovie}
                   savedMovies={savedMovies}

@@ -87,6 +87,17 @@
   text-decoration: none;
 }
 
+.profile__button_success {
+  color: #64a263;
+  text-align: center;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  margin: 0 0 16px 0;
+}
+
 @media screen and (max-width: 1200px) {
   .profile__title {
     margin: 236px auto 0;

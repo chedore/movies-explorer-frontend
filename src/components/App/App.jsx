@@ -1,6 +1,12 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
@@ -19,7 +25,7 @@ function App() {
   const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn")) ?? false;
   const [loggedIn, setLoggedIn] = useState(isLoggedIn);
   const [isLoading, setIsLoading] = useState(false);
-  const [savedMovies, setSavedMovies] = useState([]);
+    const [savedMovies, setSavedMovies] = useState([]);
   const jwt = localStorage.getItem("jwt");
 
   const navigate = useNavigate();
@@ -47,7 +53,7 @@ function App() {
         .then((user) => {
           setLoggedIn(true);
           setCurrentUser(user);
-          navigate(`${pathname}${search}`, { replace: false });
+          navigate(`${pathname}${search}`, { replace: true });
         })
         .catch((err) => {
           setLoggedIn(false);
@@ -86,12 +92,9 @@ function App() {
     setCurrentUser({});
     setSavedMovies([]);
     setLoggedIn(false);
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("shorts");
-    localStorage.removeItem("search");
-    localStorage.removeItem("searchMovies");
-    localStorage.removeItem("allMovies");
+    localStorage.clear();
+    navigate("/", { replace: false });
+    
   }
 
   function handleUserUpdate(name, email) {
@@ -128,10 +131,12 @@ function App() {
   }
 
   function handleSavedMoviesDelete(movie) {
+    const film = savedMovies.find(({ movieId }) => movieId === movie.movieId);
+
     api
-      .deleteMovie(movie._id)
+      .deleteMovie(film._id)
       .then(() => {
-        setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
+        setSavedMovies((state) => state.filter((c) => c._id !== film._id));
       })
       .catch((error) => alert(error));
   }
@@ -143,10 +148,25 @@ function App() {
           <div className="page">
             <Routes>
               <Route path="/" element={<Landing />} />
-              <Route path="/signin" element={<Login onLogin={handleLogin} />} />
+              <Route
+                path="/signin"
+                element={
+                  loggedIn ? (
+                    <Navigate to={"/movies"} replace />
+                  ) : (
+                    <Login onLogin={handleLogin} />
+                  )
+                }
+              />
               <Route
                 path="/signup"
-                element={<Register onRegister={handleRegister} />}
+                element={
+                  loggedIn ? (
+                    <Navigate to={"/movies"} replace />
+                  ) : (
+                    <Register onRegister={handleRegister} />
+                  )
+                }
               />
               <Route
                 path="/profile"

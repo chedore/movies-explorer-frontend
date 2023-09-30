@@ -37,14 +37,14 @@ export function onFilteredMovies(movies, keyword, shorts) {
     }
     return moviesToRender;
   }
+  return movies;
 }
 
 export function handleStartMoviesCards(width) {
   if (width > WIDTH_3_MOVIES) return MOVIES_3_RENDER;
   else if (width <= WIDTH_3_MOVIES && width > WIDTH_2_MOVIES)
     return MOVIES_2_RENDER;
-  else {console.log('тут')
-  return MOVIES_1_RENDER};
+  else return MOVIES_1_RENDER;
 }
 
 export function handleUploadMoreCards(width, defaul) {

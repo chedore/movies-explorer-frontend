@@ -5,26 +5,35 @@ import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 import { useFormValidation } from "../../hooks/useFormValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { EDIT_PROFILE_SUCCESS } from "../../utils/constants";
 
 export default function Profile({ onLogout, onUserUpdate }) {
-  const user = useContext(CurrentUserContext);
+  const { name, email } = useContext(CurrentUserContext);
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const { formValue, handleChange, isValid } = useFormValidation(2);
+
+  const { formValue, isValid, handleChange, setFormValue, setIsValid } =
+    useFormValidation(2);
   const [isEditProfile, setIsEditProfile] = useState(false);
 
   const handleSaveSubmit = (e) => {
     e.preventDefault();
-    const { name, email } = formValue;
-    onUserUpdate(name, email);
+    onUserUpdate(formValue.name, formValue.email);
+    setSuccessMessage(EDIT_PROFILE_SUCCESS)
     setIsEditProfile(false);
   };
 
+  // отрисовка данных пользователя
   useEffect(() => {
-    setName(!isEditProfile ? user.name : formValue.name);
-    setEmail(!isEditProfile ? user.email : formValue.email);
-  }, [user, formValue, isEditProfile]);
+    setFormValue({ name, email });
+  }, [name, email]);
+
+  // валидация, если данные изменены совпадают с текущими данными пользователя
+  useEffect(() => {
+    if (formValue.name === name && formValue.email === email) {
+      setIsValid(false);
+    }
+  }, [formValue]);
 
   return (
     <>
@@ -41,11 +50,12 @@ export default function Profile({ onLogout, onUserUpdate }) {
               className="input profile__input"
               placeholder="Введите имя"
               name="name"
-              value={name ?? ""}
+              value={formValue.name ?? ""}
               minLength="2"
               maxLength="40"
               required
               onChange={handleChange}
+              disabled={!isEditProfile}
             />
           </div>
           <div className="profile__element">
@@ -55,10 +65,11 @@ export default function Profile({ onLogout, onUserUpdate }) {
               id="form-email-input"
               className="input profile__input"
               placeholder="Введите почту"
-              value={email ?? ""}
+              value={formValue.email ?? ""}
               name="email"
               required
               onChange={handleChange}
+              disabled={!isEditProfile}
             />
           </div>
         </form>
@@ -74,16 +85,20 @@ export default function Profile({ onLogout, onUserUpdate }) {
               Сохранить
             </button>
           ) : (
-            <button
-              className={`button profile__button-edit ${
-                !isValid && "form__button_disabled"
-              }`}
-              onClick={(e) => {
-                setIsEditProfile(true);
-              }}
-            >
-              Редактировать
-            </button>
+            <>
+              <span className="profile__button_success">
+                {successMessage}
+              </span>
+
+              <button
+                className="button profile__button-edit"
+                onClick={(e) => {
+                  setIsEditProfile(true);
+                }}
+              >
+                Редактировать
+              </button>
+            </>
           )}
           <Link
             className="link profile__link-exit"

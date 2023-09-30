@@ -1,5 +1,6 @@
 import "./MoviesCard.css";
 import { convertDuration } from "../../../utils/MovieTransform";
+import { useState } from "react";
 
 export default function MoviesCard({
   movie,
@@ -12,7 +13,11 @@ export default function MoviesCard({
     isLiked = true;
     onSavedMovie(movie);
   };
-  const handleDeleteClick = () => onDeleteMovie(movie);
+
+  const handleDeleteClick = (evt) => {
+    isLiked = false;
+    onDeleteMovie(movie);
+  };
 
   let isLiked = false;
   isLiked = savedMovies.some((item) => {
@@ -50,8 +55,8 @@ export default function MoviesCard({
           className={`button movie__button ${
             isLiked ? "movie__button-like" : "movie__button-save"
           }`}
-          onClick={handleCreateClick}
-          disabled={isLiked}
+          onClick={isLiked ? handleDeleteClick : handleCreateClick}
+          // disabled={isLiked}
         ></button>
       )}
 
