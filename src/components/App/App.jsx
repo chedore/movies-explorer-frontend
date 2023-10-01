@@ -19,6 +19,7 @@ import { CurrentLoggedInContext } from "../../contexts/CurrentLoggedContext";
 import AppContext from "../../contexts/AppContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { api } from "../../utils/MainApi";
+import { EDIT_PROFILE_SUCCESS, EDIT_PROFILE_ERROR } from "../../utils/constants";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -27,6 +28,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
     const [savedMovies, setSavedMovies] = useState([]);
   const jwt = localStorage.getItem("jwt");
+  const [successRequestMessage, setSuccessRequestMessage] = useState('');
+  const [errorRequestMessage, setErrorRequestMessage] = useState('');
+  
 
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
@@ -116,15 +120,24 @@ function App() {
     
   }
 
+    // очистка сообщений об ошибках от сервера
+    function resetErrorRequestMessage() {
+      setErrorRequestMessage('');
+    }
+    function resetSuccessRequestMessage() {
+      setSuccessRequestMessage('');
+    }
+
   function handleUserUpdate(name, email) {
     // setIsLoading(true);
     api
       .userProfile({ name, email })
       .then((user) => {
         setCurrentUser(user);
+        setSuccessRequestMessage(EDIT_PROFILE_SUCCESS);
       })
       .catch((err) => {
-        alert(err);
+        setErrorRequestMessage(EDIT_PROFILE_ERROR);
       })
       .finally(() => {
         postponeLoading();
@@ -198,6 +211,10 @@ function App() {
                     element={Profile}
                     onLogout={handleLogout}
                     onUserUpdate={handleUserUpdate}
+                    requestMessage={errorRequestMessage}
+                    successRequestMessage={successRequestMessage}
+                    resetErrorRequestMessage={resetErrorRequestMessage}
+                    resetSuccessRequestMessage={resetSuccessRequestMessage}
                   />
                 }
               />

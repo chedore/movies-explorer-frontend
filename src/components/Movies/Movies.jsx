@@ -45,6 +45,7 @@ export default function Movies({
 
   //поведение при обновлении страницы
   useEffect(() => {
+    console.log("обновлен MoviesCardList", allMovies);
     if (allMovies.length > 0) {
       filterMovies(allMovies);
     }
@@ -54,6 +55,11 @@ export default function Movies({
   useEffect(() => {
     setDefaultMoviesCards(handleStartMoviesCards(width));
   }, [width]);
+
+  //поведение при обновлении страницы
+     useEffect(() => {
+      console.log("страница обновлена");
+    }, []);
 
   function filterMovies(allMovies) {
     // отфильтровываем фильмы по ключевому слову и короткометражки

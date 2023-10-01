@@ -43,17 +43,19 @@ export default function SearchForm({ onSearch, isShorts, inputSearchDefault }) {
 
   return (
     <section className="searchform">
-      <div className="searchform__container">
-        <form className="searchform__container-form">
+      <div className="searchform__container">       
+        <form className="searchform__container-form" noValidate>
           <input
-            type="text"
+            type="url"
             id="form-searchform-input"
             className="searchform__container-form-input"
             placeholder="Фильм"
+            autoComplete="off"
             name="search"
-            value={formValue.search || ""}
+            value={formValue.search ?? ""}
             required
             onChange={handleChange}
+            
           />
           <img
             className="button searchform__container-form-button"
@@ -63,9 +65,9 @@ export default function SearchForm({ onSearch, isShorts, inputSearchDefault }) {
           />
         </form>
         <span className={`form__span ${errorMessage && "form__span-error"}`}>
-          {KEYWORD_NOT_FOUND}
+          {errorMessage}
         </span>
-
+        
         <CheckBox onFilter={handleCheckBox} isShorts={isShorts} />
       </div>
     </section>

@@ -1,80 +1,33 @@
-import { useState , useEffect} from "react";
-import { regexName, regexEmail } from "../utils/constants";
+import { useState, useCallback } from "react";
 
-export function useFormValidation(limit = 3) {
-  const [formValue, setFormValue] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const [isValid, setIsValid] = useState(false);
+export function useFormValidation() {
+  const [formValue, setFormValue] = useState({});
   const [errors, setErrors] = useState({});
-  const [validations, setValidations] = useState({
-    name: false,
-    email: false,
-    password: false,
-    isResValid() {
-      return this.name + this.email + this.password === limit;
-    },
-  });
-
-  const advancedValidation = (name, value, setErrors, errors, validations) => {
-    switch (name) {
-      case "name":
-        validations[name] = regexName.test(value);
-        if (!regexName.test(value)) {
-          setErrors({
-            ...errors,
-            [name]: "Имя может содержать латиницу, кирилицу, дефис и пробел",
-          });
-        }
-        break;
-      case "email":
-        validations[name] = regexEmail.test(value);
-        if (!regexEmail.test(value)) {
-          setErrors({
-            ...errors,
-            [name]: "Неверно указан email",
-          });
-        }
-        break;
-      case "password":
-        validations[name] = true;
-        break;
-      default:
-        break;
-    }
-  };
+  const [isValid, setIsValid] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // заполняем данные формы
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    });
-
-    // заполняем ошибки
-    setErrors({
-      ...errors,
-      [name]: e.target.validationMessage,
-    });
-
-    // заполняем валидацию
-    validations[name] = e.target.checkValidity();
-    // setValidations({
-    //   ...validations,
-    //   [name]: e.target.checkValidity(),
-    // });
-
-    if (!e.target.validationMessage) {
-      advancedValidation(name, value, setErrors, errors, validations);
-    } else validations[name] = false;
-
-    setIsValid(validations.isResValid());
+    setFormValue({ ...formValue, [name]: value });
+    setErrors({ ...errors, [name]: e.target.validationMessage });
+    setIsValid(e.target.closest("form").checkValidity());
   };
 
-  return { formValue, handleChange, isValid, errors , setFormValue, setIsValid};
+  const resetForm = useCallback(
+    (newValues = {}, newErrors = {}, newIsValid = false) => {
+      setFormValue(newValues);
+      setErrors(newErrors);
+      setIsValid(newIsValid);
+    },
+    [setFormValue, setErrors, setIsValid]
+  );
+
+  return {
+    formValue,
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+    setFormValue,
+    setIsValid,
+  };
 }

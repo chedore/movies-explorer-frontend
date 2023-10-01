@@ -98,6 +98,17 @@
   margin: 0 0 16px 0;
 }
 
+.profile__button_error {
+  color: #ee3465;
+  text-align: center;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  margin: 0 0 16px 0;
+}
+
 @media screen and (max-width: 1200px) {
   .profile__title {
     margin: 236px auto 0;

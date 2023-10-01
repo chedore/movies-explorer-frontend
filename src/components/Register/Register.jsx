@@ -3,7 +3,9 @@ import Form from "../Form/Form";
 import { useFormValidation } from "../../hooks/useFormValidation";
 
 export default function Register({ onRegister }) {
-  const { formValue, handleChange, isValid, errors } = useFormValidation(3);
+  const {
+    formValue, handleChange, errors, isValid,
+  } = useFormValidation({});
 
   const handleSubmit = (e) => {
     e.preventDefault();

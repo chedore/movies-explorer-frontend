@@ -2,30 +2,40 @@ import "./Profile.css";
 import "../Form/Form.css";
 import React, { useState, useEffect, useContext } from "react";
 import Header from "../Header/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormValidation } from "../../hooks/useFormValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { EDIT_PROFILE_SUCCESS } from "../../utils/constants";
 
-export default function Profile({ onLogout, onUserUpdate }) {
+export default function Profile({
+  onLogout,
+  onUserUpdate,
+  requestMessage,
+  successRequestMessage,
+  resetErrorRequestMessage,
+  resetSuccessRequestMessage,
+}) {
+  const navigate = useNavigate();
   const { name, email } = useContext(CurrentUserContext);
-  const [successMessage, setSuccessMessage] = useState("");
-
-
-  const { formValue, isValid, handleChange, setFormValue, setIsValid } =
-    useFormValidation(2);
   const [isEditProfile, setIsEditProfile] = useState(false);
+
+  const { formValue, handleChange, errors, isValid, setFormValue, setIsValid } =
+    useFormValidation({});
+
+  function handleClickEditProfile(evt) {
+      evt.preventDefault();
+      setIsEditProfile(true);
+  }
 
   const handleSaveSubmit = (e) => {
     e.preventDefault();
     onUserUpdate(formValue.name, formValue.email);
-    setSuccessMessage(EDIT_PROFILE_SUCCESS)
-    setIsEditProfile(false);
+    console.log(successRequestMessage)
   };
 
   // отрисовка данных пользователя
   useEffect(() => {
     setFormValue({ name, email });
+    setIsEditProfile(false);
   }, [name, email]);
 
   // валидация, если данные изменены совпадают с текущими данными пользователя
@@ -34,6 +44,15 @@ export default function Profile({ onLogout, onUserUpdate }) {
       setIsValid(false);
     }
   }, [formValue]);
+
+    // очистка сообщения об ошибке от сервера
+    useEffect(() => {
+      resetErrorRequestMessage();
+    }, [formValue]);
+    // очистка сообщения об успешном обновлении данных от сервера
+    useEffect(() => {
+      resetSuccessRequestMessage();
+    }, [navigate]);
 
   return (
     <>
@@ -75,6 +94,10 @@ export default function Profile({ onLogout, onUserUpdate }) {
         </form>
         <div className="profile__buttons">
           {isEditProfile ? (
+            <>
+            <span className="profile__button_error">
+                  {requestMessage}
+                </span>
             <button
               className={`button profile__button-edit ${
                 !isValid && "form__button_disabled"
@@ -84,17 +107,14 @@ export default function Profile({ onLogout, onUserUpdate }) {
             >
               Сохранить
             </button>
+            </>
           ) : (
             <>
-              <span className="profile__button_success">
-                {successMessage}
-              </span>
+              <span className="profile__button_success">{successRequestMessage}</span>
 
               <button
                 className="button profile__button-edit"
-                onClick={(e) => {
-                  setIsEditProfile(true);
-                }}
+                onClick={handleClickEditProfile}
               >
                 Редактировать
               </button>

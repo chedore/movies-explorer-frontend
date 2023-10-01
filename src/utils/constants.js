@@ -24,6 +24,7 @@ export const RECEIVING_DATA_ERROR = 'Во время запроса произо
 'Возможно, проблема с соединением или сервер недоступен. ' +
 'Подождите немного и попробуйте ещё раз.';
 export const EDIT_PROFILE_SUCCESS = "Обновление данных прошло успешно"
+export const EDIT_PROFILE_ERROR="Не удалось обновить данные пользователя"
 
 export const WIDTH_3_MOVIES = 1200;
 export const WIDTH_2_MOVIES = 750;

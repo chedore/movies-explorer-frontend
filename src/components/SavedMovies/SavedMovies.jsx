@@ -23,7 +23,13 @@ export default function SavedMovies({
   const [shorts, setShorts] = useState(false);
   const [search, setSearch] = useState("");
 
+  //поведение при обновлении страницы
   useEffect(() => {
+    console.log("страница обновлена");
+  }, []);
+
+  useEffect(() => {
+    console.log("обновлен MoviesCardList", savedMovies);
     const filterMovies = onFilteredMovies(savedMovies, search, shorts);
     setSearchMovies(filterMovies);
   }, [savedMovies, search, shorts]);

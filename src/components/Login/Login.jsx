@@ -3,7 +3,9 @@ import Form from "../Form/Form";
 import { useFormValidation } from "../../hooks/useFormValidation";
 
 export default function Login({ onLogin }) {
-  const { formValue, handleChange, isValid, errors } = useFormValidation(2);
+  const {
+    formValue, handleChange, errors, isValid,
+  } = useFormValidation({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,6 +32,7 @@ export default function Login({ onLogin }) {
             className="input form__input"
             placeholder="Введите почту"
             name="email"
+            autoComplete="off"
             required
             onChange={handleChange}
           />
@@ -46,6 +49,7 @@ export default function Login({ onLogin }) {
             name="password"
             minLength="2"
             maxLength="40"
+            autoComplete="off"
             required
             onChange={handleChange}
           />
